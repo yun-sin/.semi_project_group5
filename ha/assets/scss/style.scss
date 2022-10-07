@@ -1,0 +1,34 @@
+main
+{
+    width:1200px;
+    height: 1080px;
+    margin: auto;
+
+    .up-section
+    {
+        width: 1200px;
+        height:612px;
+        
+        detail-search{
+            width:400px;
+            height: 37px;
+        }
+    }
+
+    .down-section
+    {
+        width: 1200px;
+        height: 409px;
+
+        div
+        {
+            display:flex;
+            
+            div
+            {
+                width: 330px;
+                height: 113px;
+            }
+        }
+    }
+}
