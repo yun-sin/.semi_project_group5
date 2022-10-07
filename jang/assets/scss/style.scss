@@ -1,0 +1,60 @@
+html,
+body {
+  height: 100%;
+}
+
+.main {
+  background-color: rgba(0, 255, 255, 0.276);
+  width: 600px;
+  height: 100%;
+  display: block;
+  margin: auto;
+  position: relative;
+
+  .container {
+    position: absolute;
+    top: 20%;
+    transform: translate(0, -50%);
+    width: 100%;
+
+    h2 {
+      font-size: 30px;
+      font-weight: bold;
+      margin-bottom: 50px;
+      letter-spacing: 1.5px;
+      line-height: 1.5;
+    }
+
+    .btn {
+      height: 70px;
+      background-color: #eee;
+      border-radius: 10px;
+      input {
+        width: 70%;
+        height: 40px;
+        background-color: #eee;
+        margin: 15px;
+        border-radius: 5px;
+        padding: 10px;
+        box-sizing: border-box;
+      }
+    }
+  }
+
+  .index {
+    position: fixed;
+    bottom: 30px;
+    width: 600px;
+    height: 30px;
+
+    ul {
+      width: 70px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+
+      li {
+      }
+    }
+  }
+}
