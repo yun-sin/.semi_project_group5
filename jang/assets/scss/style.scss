@@ -35,65 +35,100 @@ h2 {
   display: block;
   margin: auto;
   position: relative;
+}
+.container {
+  position: absolute;
+  top: 30%;
+  transform: translate(0, -50%);
+  width: 100%;
 
-  .container {
-    position: absolute;
-    top: 30%;
-    transform: translate(0, -50%);
-    width: 100%;
-
-    .btn {
-      height: 60px;
+  .btn {
+    height: 60px;
+    background-color: #eee;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    input {
+      width: 70%;
+      height: 40px;
       background-color: #eee;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      input {
-        width: 70%;
-        height: 40px;
-        background-color: #eee;
-        margin: 15px;
-        border-radius: 5px;
-        padding: 10px;
-        box-sizing: border-box;
-      }
-      button {
-        height: 40px;
-        margin: 10px;
-        border: none;
-      }
-      a {
-        font-size: 23px;
-        float: right;
-        line-height: 60px;
-        margin-right: 15px;
-        color: gray;
-      }
+      margin: 15px;
+      border-radius: 5px;
+      padding: 10px;
+      box-sizing: border-box;
     }
-  }
-
-  .index {
-    position: fixed;
-    bottom: 30px;
-    width: 480px;
-    height: 30px;
-
-    ul {
-      width: 70px;
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-
-      li {
-        color: #eee;
-      }
-      .choose {
-        color: #566fee;
-      }
+    button {
+      height: 40px;
+      margin: 10px;
+      border: none;
+    }
+    a {
+      font-size: 23px;
+      float: right;
+      line-height: 60px;
+      margin-right: 15px;
+      color: gray;
     }
   }
 }
 
+.index {
+  position: fixed;
+  bottom: 30px;
+  width: 480px;
+  height: 30px;
+
+  ul {
+    width: 70px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+
+    li {
+      color: #eee;
+    }
+    .choose {
+      color: #566fee;
+    }
+  }
+}
+
+.recommend {
+  background-color: rgba(0, 0, 0, 0.201);
+  width: 1100px;
+  height: 100%;
+  display: block;
+  margin: auto;
+  position: relative;
+  padding-top: 100px;
+  .container2 {
+    width: 100%;
+  }
+  h2 {
+    text-align: center;
+    display: block;
+  }
+  .row_container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    .rec_container {
+      margin: 15px 0;
+      img {
+        width: 200px;
+      }
+
+      h3 {
+        font-weight: 700;
+        font-size: 20px;
+      }
+      p {
+        font-weight: 400;
+      }
+    }
+  }
+}
 .form1,
+.form2,
 .form3 {
   display: none;
 }
