@@ -1,0 +1,249 @@
+/**
+ * @ File Name: style.scss
+ * @ Author: 박다윗 (daxxx2030@gail.com)
+ * @ Last Update: 2022-10-10 17:05:00
+ * @ Description: Style CSS
+ */
+@charset "utf-8";
+
+// scss import
+@import "./reset.scss";
+@import "./responsive.scss";
+@import "./common.scss";
+// Hover Library import
+@import url("../../../node_modules/hover.css/css/hover-min.css");
+
+// index.html
+// header와 footer 사이 main
+main {
+    // 크기
+    width: 100%;
+    height: auto;
+    // 텍스트 정렬
+    text-align: center;
+    // 블록 정렬
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    // 배경 색상
+    // background-color: antiquewhite;
+    // search icon (fontawesome)
+    #search {
+        font-size: 24px;
+        // search icon animation 설정
+        animation-name: search;
+        animation-duration: 4s;
+        animation-direction: alternate;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease;
+    }
+    // search animation
+    @keyframes search {
+        0% {transform: translate(-50%, 0);}
+        30% {transform: translate(5%, 20%);}
+        70% {transform: translate(-70%, 35%);}
+        100% {transform: translate(-50%, 0);}
+    }
+    // 메인 타이틀 section
+    #main_title {
+        // search icon과 간격 h1
+        #title {
+            margin: 10px 0 0 0;
+        }
+        // 서브 타이틀 h5
+        #sub_title {
+            font-weight: $fw_m;
+            color: $fc_sub;
+        }
+    }
+
+    // 오늘의 공연
+    #main_today {
+        // 오늘의 공연 포스터 (open api json data)
+        #today {
+            display: flex;
+            // 전체 이미지의 상하좌우 padding
+            padding: 20px;
+            img {
+                width: 200px;
+                // 이미지간 간격
+                padding: 10px;
+                box-sizing: border-box;
+                // 이미지 채움
+                object-fit: cover;
+            }
+        }
+    }
+
+    // 검색 버튼
+    #main_button {
+        width: 100%;
+        ul {
+            width: 100%;
+            // 세로 정렬
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            // 크기 조정
+            li {
+                width: 422px;
+                height: 50px;
+                margin-top: 5px;
+                a {
+                    line-height: 50px;
+                }
+            }
+            // 맞춤공연 검색버튼 색상 적용
+            #search_form {
+                background-color: $pc_main;
+                transition: all 0.3s ease;
+                a {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    color: white;
+                }
+            }
+            // 맞춤공연 검색버튼 hover
+            #search_form:hover {
+                background-color: $pc_main_hover;
+            }
+            // 직접공연 검색버튼
+            #search_page {
+                a {
+                    transition: all 0.3s ease;
+                    color: $fc_sub;
+                }
+                a:hover {
+                    color: $pc_main;
+
+                }
+            }
+        }
+    }
+}
+
+// 태블릿 반응형웹
+@include tablet {
+    body {
+        header {
+            border: 0;
+            box-shadow: 0 -30px 50px 3px $bg_footer;
+        }
+        main {
+            margin: 48px 0;
+            // 검색 버튼
+            #main_button {
+                ul {
+                    li {
+                        width: 41%;
+                    }
+                }
+            }
+            #main_today {
+                #today {
+                    display: flex;
+                    justify-content: space-evenly;
+                    flex-wrap: wrap;
+                    padding: 20px 30px;
+                    box-sizing: border-box;
+                    img {
+                        width: 25%;
+                        padding: 8px;
+                        box-sizing: border-box;
+                        object-fit: cover;
+                    }
+                    img:nth-child(n + 13) {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 모바일 반응형웹
+@include mobile {
+    header {
+        height: 50px;
+        border: 0;
+        box-shadow: 0 -30px 50px 3px $bg_footer;
+        #battery {
+            margin: 5px auto;
+            #header_logo {
+                animation-name: none !important;
+                span {
+                    display: none !important;
+                }
+            }
+        }
+    #shortcut_nav {
+        ul {
+            li {
+                display: none;
+            }
+        }
+    }
+}
+    main {
+        #search {
+            font-size: $h1_m;
+        }
+        #main_title {
+            b {
+                #title {
+                    font-size: $h1_m;
+                    line-height: 45px;
+                    margin: 8px 0 0 0;
+                }
+            }
+            #sub_title {
+                font-size: $fs_l;
+                line-height: 20px;
+            }
+        }
+        #main_today {
+            #today {
+                display: flex;
+                justify-content: space-evenly;
+                flex-wrap: wrap;
+                padding: 15px 30px;
+                box-sizing: border-box;
+                img {
+                    width: 20%;
+                    padding: 5px;
+                    box-sizing: border-box;
+                    object-fit: cover;
+                }
+                img:nth-child(n + 11) {
+                    display: none;
+                }
+            }
+        }
+        #main_button {
+            ul {
+                li {
+                    min-width: 200px;
+                    max-width: 41%;
+                    height: 40px;
+                    a {
+                        font-size: $fs_l;
+                        line-height: 40px;
+                    }
+                }
+                #search_page {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+    footer {
+        address {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 0 20px;
+        }
+    }
+}
