@@ -8,10 +8,16 @@ main
     {
         width: 1200px;
         height:612px;
+        margin-top:20px;
         
-        detail-search{
+        .detail-search
+        {
             width:400px;
             height: 37px;
+        }
+        .search
+        {
+            margin-bottom: 30px;
         }
     }
 
