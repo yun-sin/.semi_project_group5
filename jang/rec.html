@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/style.min.css" />
+    <link rel="shortcut icon" href="./assets/favicon/bolt-solid.ico" />
+    <script src="https://kit.fontawesome.com/6d6ba2de03.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <!-- header -->
+    <div data-include="inc/header.html"></div>
+
+    <!-- rec -->
+    <h2 id="title">
+      <span class="span1"></span> <br />
+      <span class="span2"></span> 근처 <br />
+      <span class="span4"></span>을 추천해드릴게요.
+    </h2>
+    <div class="container2">
+      <div class="row_container">
+        <div class="rec_container">
+          <img src="assets/img/salmon.jpg" alt="" />
+          <h3><a href="#">전시1</a></h3>
+          <h4>내용1</h4>
+          <p>위치</p>
+        </div>
+        <div class="rec_container">
+          <img src="assets/img/salmon.jpg" alt="" />
+          <h3><a href="#">전시1</a></h3>
+          <h4>내용1</h4>
+          <p>위치</p>
+        </div>
+        <div class="rec_container">
+          <img src="assets/img/salmon.jpg" alt="" />
+          <h3><a href="#">전시1</a></h3>
+          <h4>내용1</h4>
+          <p>위치</p>
+        </div>
+      </div>
+      <div class="row_container">
+        <div class="rec_container">
+          <img src="assets/img/salmon.jpg" alt="" />
+          <h3><a href="#">전시1</a></h3>
+          <h4>내용1</h4>
+          <p>위치</p>
+        </div>
+        <div class="rec_container">
+          <img src="assets/img/salmon.jpg" alt="" />
+          <h3><a href="#">전시1</a></h3>
+          <h4>내용1</h4>
+          <p>위치</p>
+        </div>
+        <div class="rec_container">
+          <img src="assets/img/salmon.jpg" alt="" />
+          <h3><a href="#">전시1</a></h3>
+          <h4>내용1</h4>
+          <p>위치</p>
+        </div>
+      </div>
+
+      <a href="#" id="more"><i class="fa-brands fa-searchengin"></i> </a>
+    </div>
+
+    <!-- footer -->
+    <div data-include="inc/footer.html"></div>
+
+    <script src="../../node_modules/axios/dist/axios.min.js"></script>
+    <script src="assets/js/include.js"></script>
+    <script>
+      const date = window.sessionStorage.getItem("date"); // 날짜
+      const lat = window.sessionStorage.getItem("lat"); // 위도
+      const lon = window.sessionStorage.getItem("lon"); // 경도
+      const add = window.sessionStorage.getItem("add"); // 위치
+      const type = window.sessionStorage.getItem("type"); // 문화종류
+
+      console.log(date);
+      console.log(lat);
+      console.log(lon);
+      console.log(type);
+
+      const h2 = document.createElement("h2");
+
+      const span1 = document.querySelector(".span1");
+      span1.innerHTML = date;
+
+      const span2 = document.querySelector(".span2");
+      span2.innerHTML = add;
+
+      const span4 = document.querySelector(".span4");
+      span4.innerHTML = type;
+
+      (async () => {
+        try {
+          const response = await axios.get("http://localhost:3001/response");
+          json = response.data;
+        } catch (e) {
+          console.error(e);
+          alert("요청을 처리하는데 실패했습니다.");
+          return;
+        }
+
+        console.log(json.body.items.item);
+
+        json.body.items.item.forEach((v, i) => {
+          document.querySelectorAll("img")[i].setAttribute("src", v.referenceIdentifier);
+          document.querySelectorAll("h3")[i].innerHTML = v.title;
+          document.querySelectorAll("h4")[i].innerHTML = v.spatialCoverage;
+          document.querySelectorAll("p")[i].innerHTML = v.temporalCoverage;
+          document.querySelectorAll(".rec_container")[i].addEventListener("click", (e) => {
+            window.open(v.url);
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
