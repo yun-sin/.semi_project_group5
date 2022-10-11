@@ -8,60 +8,32 @@
     <link rel="stylesheet" href="assets/css/style.min.css" />
     <link rel="shortcut icon" href="./assets/favicon/bolt-solid.ico" />
     <script src="https://kit.fontawesome.com/6d6ba2de03.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+      span {
+        color: #425ad5;
+      }
+    </style>
   </head>
   <body>
     <!-- header -->
     <div data-include="inc/header.html"></div>
 
     <!-- rec -->
-    <h2 id="title">
-      <span class="span1"></span> <br />
-      <span class="span2"></span> 근처 <br />
-      <span class="span4"></span>을 추천해드릴게요.
-    </h2>
-    <div class="container2">
-      <div class="row_container">
-        <div class="rec_container">
-          <img src="assets/img/salmon.jpg" alt="" />
-          <h3><a href="#">전시1</a></h3>
-          <h4>내용1</h4>
-          <p>위치</p>
-        </div>
-        <div class="rec_container">
-          <img src="assets/img/salmon.jpg" alt="" />
-          <h3><a href="#">전시1</a></h3>
-          <h4>내용1</h4>
-          <p>위치</p>
-        </div>
-        <div class="rec_container">
-          <img src="assets/img/salmon.jpg" alt="" />
-          <h3><a href="#">전시1</a></h3>
-          <h4>내용1</h4>
-          <p>위치</p>
-        </div>
-      </div>
-      <div class="row_container">
-        <div class="rec_container">
-          <img src="assets/img/salmon.jpg" alt="" />
-          <h3><a href="#">전시1</a></h3>
-          <h4>내용1</h4>
-          <p>위치</p>
-        </div>
-        <div class="rec_container">
-          <img src="assets/img/salmon.jpg" alt="" />
-          <h3><a href="#">전시1</a></h3>
-          <h4>내용1</h4>
-          <p>위치</p>
-        </div>
-        <div class="rec_container">
-          <img src="assets/img/salmon.jpg" alt="" />
-          <h3><a href="#">전시1</a></h3>
-          <h4>내용1</h4>
-          <p>위치</p>
-        </div>
-      </div>
 
-      <a href="#" id="more"><i class="fa-brands fa-searchengin"></i> </a>
+    <div class="container2">
+      <div class="wrapper">
+        <h2 id="title">[<span class="span1"></span>] <span class="span2"></span> 근처의 <span class="span4"></span>을 추천해드릴게요.</h2>
+        <div id="box"></div>
+      </div>
+      <div class="row_container">
+        <!-- <div data-aos="fade-up" data-aos-delay="1000" class="rec_container">
+          <img src="assets/img/salmon.jpg" alt="" />
+          <h3><a href="#">전시1</a></h3>
+          <h4>내용1</h4>
+          <p>위치</p>
+        </div> -->
+      </div>
     </div>
 
     <!-- footer -->
@@ -69,7 +41,12 @@
 
     <script src="../../node_modules/axios/dist/axios.min.js"></script>
     <script src="assets/js/include.js"></script>
+    <script src="../../node_modules/aos/dist/aos.js"></script>
     <script>
+      document.querySelector("#box").style.transform = "translate(1000px,0)";
+
+      AOS.init();
+
       const date = window.sessionStorage.getItem("date"); // 날짜
       const lat = window.sessionStorage.getItem("lat"); // 위도
       const lon = window.sessionStorage.getItem("lon"); // 경도
@@ -105,13 +82,30 @@
         console.log(json.body.items.item);
 
         json.body.items.item.forEach((v, i) => {
-          document.querySelectorAll("img")[i].setAttribute("src", v.referenceIdentifier);
-          document.querySelectorAll("h3")[i].innerHTML = v.title;
-          document.querySelectorAll("h4")[i].innerHTML = v.spatialCoverage;
-          document.querySelectorAll("p")[i].innerHTML = v.temporalCoverage;
-          document.querySelectorAll(".rec_container")[i].addEventListener("click", (e) => {
+          const div = document.createElement("div");
+          div.dataset.aos = "fade-up";
+          div.dataset.aosDelay = 1000 + i * 100;
+          div.classList.add("rec_container");
+
+          const img = document.createElement("img");
+          const h3 = document.createElement("h3");
+          const h4 = document.createElement("h4");
+          const p = document.createElement("p");
+
+          img.setAttribute("src", v.referenceIdentifier);
+          h3.innerHTML = v.title;
+          h4.innerHTML = v.spatialCoverage;
+          p.innerHTML = v.temporalCoverage;
+          div.addEventListener("click", (e) => {
             window.open(v.url);
           });
+
+          div.appendChild(img);
+          div.appendChild(h3);
+          div.appendChild(h4);
+          div.appendChild(p);
+
+          document.querySelector(".row_container").appendChild(div);
         });
       })();
     </script>
