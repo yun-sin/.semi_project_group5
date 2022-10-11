@@ -9,23 +9,35 @@ main
         width: 1000px;
         height: 508px;
         margin:auto;
+        padding-top:108px;
+        
 
-        .search_form
-        {
-            padding-top:108px;
-            margin: 10px;
-        }
+       .search_form
+       {
+        padding-left:10px;
+       }
+ 
 
-        .map
+        .box1
         {
-            width: 670px;
-            height: 400px;
-        }
+            display: flex;
+            padding: 10px 10px 10px;
 
-        .detail
-        {
-            width: 300px;
-            height: 400px;
+            .map
+            {
+                width: 670px;
+                height: 400px;
+                background-color: rgba(255,0,0,.3);
+                margin-right:10px;
+                
+            }
+
+            .detail
+            {
+                width: 300px;
+                height: 400px;
+                background-color: rgba(0,255,0,0.3);
+            }
         }
     }
 }
