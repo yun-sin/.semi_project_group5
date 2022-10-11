@@ -7,7 +7,6 @@
     <title>문화충전</title>
     <link rel="stylesheet" href="assets/css/reset.min.css">
     <link rel="stylesheet" href="assets/css/style.min.css">
-    <link rel="stylesheet" href="assets/css/css(임시).css">
     <script src="https://kit.fontawesome.com/4691863309.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -64,38 +63,16 @@
                     </fieldset>
                 </form>
             </div>
+            <div class="map">
+                map
+            </div>
+            <div class="detail">
+                상세정보창
+            </div>
         </section>
 
         <section class="down-section">
-            <div>
-                <div>
-                    <h1>공연정보1</h1>
-                </div>
-                <div>
-                    <h1>공연정보2</h1>
-                </div>
-                <div>
-                    <h1>공연정보3</h1>
-                </div>
-                <div>
-                    <h1>공연정보4</h1>
-                </div>
-                <div>
-                    <h1>공연정보5</h1>
-                </div>
-                <div>
-                    <h1>공연정보6</h1>
-                </div>
-                <div>
-                    <h1>공연정보7</h1>
-                </div>
-                <div>
-                    <h1>공연정보8</h1>
-                </div>
-                <div>
-                    <h1>공연정보9</h1>
-                </div>
-            </div>
+   
         </section>
     </main>
 
@@ -123,11 +100,27 @@
                 return;
             }
 
+            const div=document.createElement("div");
+            div.classList.add("div1");
+            document.querySelector(".down-section").appendChild(div);
+
             for(let i=0; i<9; i++)
             {
                 const img=document.createElement("img");
-                
+                img.setAttribute('src', `${json[i].referenceIdentifier}`);
+                img.classList.add('img1');
+                document.querySelector(".div1").appendChild(img);
+
+                const h1=document.createElement("h1");
+                h1.classList.add("h1_1");
+                document.querySelector(".div1").appendChild(h1);
             }
+
+            for(let i=0; i<9; i++)
+            {
+                document.querySelectorAll(".h1_1")[i].innerHTML=`${json[i].title}`;
+            }
+            
         })();
     </script>
 </body>

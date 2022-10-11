@@ -1,40 +1,31 @@
 main
 {
-    width:1200px;
-    height: 1080px;
+    height: 942px;
+    width: 1362px;
     margin: auto;
 
     .up-section
     {
-        width: 1200px;
-        height:612px;
-        margin-top:20px;
-        
-        .detail-search
-        {
-            width:400px;
-            height: 37px;
-        }
-        .search
-        {
-            margin-bottom: 30px;
-        }
-    }
+        width: 1000px;
+        height: 508px;
+        margin:auto;
 
-    .down-section
-    {
-        width: 1200px;
-        height: 409px;
-
-        div
+        .search_form
         {
-            display:flex;
-            
-            div
-            {
-                width: 330px;
-                height: 113px;
-            }
+            padding-top:108px;
+            margin: 10px;
+        }
+
+        .map
+        {
+            width: 670px;
+            height: 400px;
+        }
+
+        .detail
+        {
+            width: 300px;
+            height: 400px;
         }
     }
 }
