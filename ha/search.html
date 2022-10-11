@@ -102,5 +102,33 @@
     <footer>
         <div data-include="../park/inc/footer.html"></div>
     </footer>
+
+    <script src="../../../../node_modules/axios/dist/axios.min.js"></script>
+    <script type="module">
+        //공연목록
+        (async()=>
+        {
+            let json=null;
+
+            try
+            {
+                const response=await axios.get("http://localhost:3001/response");
+                json=response.data.body.items.item;
+                //console.log(json)
+            }
+            catch(e)
+            {
+                console.error(e);
+                alert("요청을 처리하는데 실패했습니다.");
+                return;
+            }
+
+            for(let i=0; i<9; i++)
+            {
+                const img=document.createElement("img");
+                
+            }
+        })();
+    </script>
 </body>
 </html>
