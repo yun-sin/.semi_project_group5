@@ -74,7 +74,9 @@
         </section>
 
         <section class="down-section">
-   
+            <div class="div1">
+
+            </div>
         </section>
     </main>
 
@@ -102,27 +104,28 @@
                 return;
             }
 
-            const div=document.createElement("div");
-            div.classList.add("div1");
-            document.querySelector(".down-section").appendChild(div);
-
-            for(let i=0; i<9; i++)
+            for(let i=0; i<4; i++)
             {
+                //div 생성 및 class="container" 부여
+                const div=document.createElement("div");
+                div.classList.add("container");
+                //div.div1에 넣기
+                document.querySelector(".div1").appendChild(div);
+
+                //img 생성
                 const img=document.createElement("img");
+                //json데이터 중 포스터 이미지를 img에 넣기
                 img.setAttribute('src', `${json[i].referenceIdentifier}`);
-                img.classList.add('img1');
-                document.querySelector(".div1").appendChild(img);
+                //생성된 <img>를 div.conatiner에 넣기
+                document.querySelector(".container").appendChild(img);
 
+                //h1 생성
                 const h1=document.createElement("h1");
-                h1.classList.add("h1_1");
-                document.querySelector(".div1").appendChild(h1);
-            }
-
-            for(let i=0; i<9; i++)
-            {
-                document.querySelectorAll(".h1_1")[i].innerHTML=`${json[i].title}`;
-            }
-            
+                //json데이터 중 title을 h1으로 생성
+                h1.innerHTML=`${json[i].title}`;
+                //h1을 div.container에 넣기
+                document.querySelector(".container").appendChild(h1);
+            }       
         })();
     </script>
 </body>
