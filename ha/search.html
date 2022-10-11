@@ -7,6 +7,8 @@
     <title>문화충전</title>
     <link rel="stylesheet" href="assets/css/reset.min.css">
     <link rel="stylesheet" href="assets/css/style.min.css">
+    <link rel="stylesheet" href="assets/css/css(임시).css">
+    <script src="https://kit.fontawesome.com/4691863309.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
@@ -15,26 +17,52 @@
 
     <main>
         <section class="up-section">
-            <div class="detail-search">
-                <input type="radio" name="name" value="title">공연 이름
-                <input type="radio" name="name" value="spatialCoverage">공연장
-            </div>
-
-            <div class="search">
-                <input type="text" placeholder="검색어를 입력해주세요">
-            </div>
-
-            <article class="category">
-                <input type="checkbox" name="category" title="클래식" value="classic">클래식
-                <input type="checkbox" name="category" title="콘서트" value="concert">콘서트
-                <input type="checkbox" name="category" title="오페라" value="opera">오페라
-                <input type="checkbox" name="category" title="연극" value="theater">연극
-                <input type="checkbox" name="category" title="뮤지컬" value="musical">뮤지컬
-                <input type="checkbox" name="category" title="무용" value="dancing">무용
-                <input type="checkbox" name="category" title="기타" value="etc">기타
-            </article>
-            <div>
-                
+            <div class="search_form">
+                <form id="searchForm" name="searchForm">
+                    <fieldset>
+                        <span class="search_select">
+                            <select name="search_genre" id="search_genre">
+                                <option value="genre">장르</option>
+                                <option value="dancing">무용</option>
+                                <option value="musical">뮤지컬</option>
+                                <option value="theater">연극</option>
+                                <option value="opera">오페라</option>
+                                <option value="concert">콘서트</option>
+                                <option value="classic">클래식</option>
+                                <option value="etc">기타</option>
+                            </select>
+                        </span>
+                        
+                        <span class="search_select">
+                            <select name="search_area" id="search_area">
+                                <option value="area">지역</option>
+                                <option value="Seoul">서울특별시</option>
+                                <option value="Busan">부산광역시</option>
+                                <option value="Dae-gu">대구광역시</option>
+                                <option value="Incheon">인천광역시</option>
+                                <option value="Gwangju">광주광역시</option>
+                                <option value="Daejeon">대전광역시</option>
+                                <option value="Ulsan">울산광역시</option>
+                                <option value="Gyeonggi-do">경기도</option>
+                                <option value="Gangwon-do">강원도</option>
+                                <option value="Chung-cheong bukdo">충청북도</option>
+                                <option value="Chung-cheong namdo">충청남도</option>
+                                <option value="Jeollabuk do">전라북도</option>
+                                <option value="Jeollanam-do">전라남도</option>
+                                <option value="Gyeongsangbuk-do">경상북도</option>
+                                <option value="Gyeongsangnam-do">경상남도</option>
+                                <option value="Jeju">제주특별자치도</option>
+                                <option value="Sejong">세종시</option>
+                            </select>
+                        </span>
+                        <span class="search">
+                            <input type="text" placeholder="검색어를 입력하세요">
+                            <button type="button">
+                                <i class="fa-solid fa-magnifying-glass">검색</i>
+                            </button>
+                        </span>
+                    </fieldset>
+                </form>
             </div>
         </section>
 
