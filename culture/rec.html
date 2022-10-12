@@ -20,7 +20,8 @@
     <!-- rec -->
     <div class="wrapper">
       <h2 id="title2">
-        <span class="span1"></span> <span class="span2"></span>
+        <span class="span1"></span><br />
+        <span class="span2"></span> <br />
         <span class="span4"></span>
       </h2>
     </div>
@@ -50,26 +51,26 @@
 
     <script>
       document.querySelector("#loading").classList.add("active");
-
       setTimeout(() => {
         document.querySelector("#title2").style.opacity = "1";
       }, 2000);
 
-      const date = window.sessionStorage.getItem("date"); // 날짜
-      const lat = window.sessionStorage.getItem("lat"); // 위도
-      const lon = window.sessionStorage.getItem("lon"); // 경도
-      const add = window.sessionStorage.getItem("add"); // 위치
-      const type = window.sessionStorage.getItem("type"); // 문화종류
+      const date = window.localStorage.getItem("date"); // 날짜
+      const lat = window.localStorage.getItem("lat"); // 위도
+      const lon = window.localStorage.getItem("lon"); // 경도
+      const add = window.localStorage.getItem("add"); // 위치
+      const type = window.localStorage.getItem("type"); // 문화종류
 
-      console.log(date);
-      console.log(lat);
-      console.log(lon);
-      console.log(type);
+      console.log(date); // 일자
+      console.log(lat); // 위도
+      console.log(lon); // 경도
+      console.log(add); // 주소
+      console.log(type); // 장르
 
       const h2 = document.createElement("h2");
 
       const span1 = document.querySelector(".span1");
-      span1.innerHTML = date ? "[" + date + "]" : "";
+      span1.innerHTML = date ? date : "";
 
       const span2 = document.querySelector(".span2");
       span2.innerHTML = add ? add + " 근처의" : "";
@@ -83,7 +84,7 @@
           const response = await axios.get("http://api.kcisa.kr/openapi/service/rest/meta16/getkopis01", {
             params: {
               serviceKey: `ff1e4d4d-6fdc-4642-96af-816af3919b8e`,
-              numOfRows: 30,
+              numOfRows: 100,
               pageNo: 1,
             },
             header: {
@@ -103,33 +104,64 @@
         console.log(json);
 
         json.forEach((v, i) => {
-          const div = document.createElement("div");
+          // console.log(v.temporalCoverage);
+          const period = v.temporalCoverage.split("~");
+          // console.log(period);
+          const choosed = new Date(date);
+          const startDate = new Date(period[0]);
+          startDate.setFullYear(startDate.getFullYear() + 3);
+          const endDate = new Date(period[1]);
+          endDate.setFullYear(endDate.getFullYear() + 3);
 
-          div.classList.add("rec_container");
-          div.classList.add("animate__animated");
-          div.classList.add("animate__fadeInUp");
-          div.style.setProperty("--animate-duration", i * 100 + 1000 + "ms");
+          let A = BigInt(choosed.getTime());
+          let B = BigInt(startDate.getTime());
+          let C = BigInt(endDate.getTime());
+          const A1 = ("" + A).substring(0, 6);
+          const B1 = ("" + B).substring(0, 6);
+          const C1 = ("" + C).substring(0, 6);
+          console.log(A1);
+          console.log(B1);
+          console.log(C1);
 
-          const img = document.createElement("img");
-          img.classList.add("hvr-grow");
-          const h3 = document.createElement("h3");
-          const h4 = document.createElement("h4");
-          const p = document.createElement("p");
+          A = parseInt(A1); // 선택
+          B = parseInt(B1); // 시작
+          C = parseInt(C1); // 엔드
 
-          img.setAttribute("src", v.referenceIdentifier);
-          h3.innerHTML = v.title;
-          h4.innerHTML = v.spatialCoverage;
-          p.innerHTML = v.temporalCoverage;
-          div.addEventListener("click", (e) => {
-            window.open(v.url);
-          });
+          // 검색 조건에 따라 필터링
+          if (type.includes(v.subjectCategory)) {
+            if (A >= B && A <= C) {
+              console.log("시작일" + startDate.getTime());
+              console.log("선택일" + choosed.getTime()); // 과거의 api라서 3년전을 기준으로 검색하기 위함
+              console.log("마감일" + endDate.getTime());
+              console.log(v.subjectCategory);
+              const div = document.createElement("div");
+              div.classList.add("rec_container");
+              div.classList.add("animate__animated");
+              div.classList.add("animate__fadeInUp");
+              div.style.setProperty("--animate-duration", i * 100 + 1000 + "ms");
 
-          div.appendChild(img);
-          div.appendChild(h3);
-          div.appendChild(h4);
-          div.appendChild(p);
+              const img = document.createElement("img");
+              img.classList.add("hvr-grow");
+              const h3 = document.createElement("h3");
+              const h4 = document.createElement("h4");
+              const p = document.createElement("p");
 
-          document.querySelector(".row_container").appendChild(div);
+              img.setAttribute("src", v.referenceIdentifier);
+              h3.innerHTML = v.title;
+              h4.innerHTML = v.spatialCoverage;
+              p.innerHTML = v.temporalCoverage;
+              div.addEventListener("click", (e) => {
+                window.open(v.url);
+              });
+
+              div.appendChild(img);
+              div.appendChild(h3);
+              div.appendChild(h4);
+              div.appendChild(p);
+
+              document.querySelector(".row_container").appendChild(div);
+            }
+          }
         });
       })();
     </script>

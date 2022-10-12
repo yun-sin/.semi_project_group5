@@ -57,35 +57,38 @@
 
         <!-- form3 -->
         <div class="container">
-          <h2>어떤 <br />장르를 찾으시나요?</h2>
-          <div class="btn">
-            <button><p>무용</p></button>
-            <a href="#" class="conCheck check hvr-grow"><i class="fa-regular fa-circle-check"></i></a>
+          <h2>어떤 <br />장르를 찾으시나요? (복수선택 가능)</h2>
+          <div class="btn btn1" data-genre="무용">
+            <p>무용</p>
+            <a href="#" class="expCheck check hvr-grow"><i class="fa-regular fa-circle-check"></i></a>
           </div>
-          <div class="btn">
-            <button><p>뮤지컬</p></button>
-            <a href="#" class="exhCheck check hvr-grow"><i class="fa-regular fa-circle-check"></i></a>
+          <div class="btn btn1" data-genre="뮤지컬">
+            <p>뮤지컬</p>
+            <a href="#" class="expCheck check hvr-grow"><i class="fa-regular fa-circle-check"></i></a>
           </div>
-          <div class="btn">
-            <button><p>연극</p></button>
+          <div class="btn btn1" data-genre="뮤지컬">
+            <p>연극</p>
             <a href="#" class="expCheck check hvr-grow"><i class="fa-regular fa-circle-check"></i></a>
           </div>
 
-          <div class="btn">
-            <button><p>오페라</p></button>
+          <div class="btn btn1" data-genre="오페라">
+            <p>오페라</p>
             <a href="#" class="expCheck check hvr-grow"><i class="fa-regular fa-circle-check"></i></a>
           </div>
-          <div class="btn">
-            <button><p>콘서트</p></button>
+          <div class="btn btn1" data-genre="콘서트">
+            <p>콘서트</p>
             <a href="#" class="expCheck check hvr-grow"><i class="fa-regular fa-circle-check"></i></a>
           </div>
-          <div class="btn">
-            <button><p>클래식</p></button>
+          <div class="btn btn1" data-genre="클래식">
+            <p>클래식</p>
             <a href="#" class="expCheck check hvr-grow"><i class="fa-regular fa-circle-check"></i></a>
           </div>
-          <div class="btn">
-            <button><p>기타</p></button>
+          <div class="btn btn1" data-genre="기타">
+            <p>기타</p>
             <a href="#" class="expCheck check hvr-grow"><i class="fa-regular fa-circle-check"></i></a>
+          </div>
+          <div class="btn chooseEnd">
+            <a href="#" id="chooseEnd">선택완료</a>
           </div>
         </div>
       </div>
@@ -130,7 +133,7 @@
           document.querySelector(".i2").classList.add("choose");
           document.querySelector(".map_wrap").style.bottom = "60%";
           wrap.style.transform = "translate(-700px)";
-          window.sessionStorage.setItem("date", calender.value);
+          window.localStorage.setItem("date", calender.value);
         }
       });
 
@@ -294,9 +297,9 @@
           document.querySelector(".i2").classList.remove("choose");
           document.querySelector(".i3").classList.add("choose");
           wrap.style.transform = "translate(-1400px)";
-          window.sessionStorage.setItem("lat", userLoc.dataset.lat);
-          window.sessionStorage.setItem("lon", userLoc.dataset.lon);
-          window.sessionStorage.setItem("add", userLoc.dataset.add);
+          window.localStorage.setItem("lat", userLoc.dataset.lat);
+          window.localStorage.setItem("lon", userLoc.dataset.lon);
+          window.localStorage.setItem("add", userLoc.dataset.add);
           // const state = { lat: userLoc.dataset.lat, lon: userLoc.dataset.lon };
           // const url = "form.html?lat=" + userLoc.dataset.lat + "&lon=" + userLoc.dataset.lon;
           // history.pushState(state, null, url);
@@ -313,21 +316,35 @@
           document.querySelector(".i2").classList.remove("choose");
           document.querySelector(".i3").classList.add("choose");
           wrap.style.transform = "translate(-1400px)";
-          window.sessionStorage.setItem("lat", chooseLoc.dataset.lat);
-          window.sessionStorage.setItem("lon", chooseLoc.dataset.lon);
-          window.sessionStorage.setItem("add", chooseLoc.dataset.add);
+          window.localStorage.setItem("lat", chooseLoc.dataset.lat);
+          window.localStorage.setItem("lon", chooseLoc.dataset.lon);
+          window.localStorage.setItem("add", chooseLoc.dataset.add);
           // const state = { lat: chooseLoc.dataset.lat, lon: chooseLoc.dataset.lon };
           // const url = "form.html?lat=" + chooseLoc.dataset.lat + "&lon=" + chooseLoc.dataset.lon;
           // history.pushState(state, null, url);
         }
       });
 
-      document.querySelector(".conCheck").addEventListener("click", (e) => {
-        e.preventDefault();
+      document.querySelectorAll(".btn1").forEach((v, i) => {
+        v.addEventListener("click", (e) => {
+          v.classList.toggle("choiced");
+        });
+      });
 
-        window.sessionStorage.setItem("type", "공연");
-
-        window.location.href = "rec.html";
+      document.querySelector(".chooseEnd").addEventListener("click", (e) => {
+        const choArr = [];
+        Array.from(document.querySelectorAll(".btn1")).forEach((v, i) => {
+          if (v.classList.contains("choiced")) {
+            choArr.push(v.dataset.genre);
+          }
+        });
+        console.log(choArr);
+        if (choArr.length == 0) {
+          alert("장르를 선택해주세요.");
+        } else {
+          window.localStorage.setItem("type", choArr);
+          window.location.href = "rec.html";
+        }
       });
     </script>
   </body>

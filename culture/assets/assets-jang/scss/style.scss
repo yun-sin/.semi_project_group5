@@ -18,13 +18,20 @@ html,
 body {
   height: 100%;
   src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
-  font-family: "Pretendard-Regular";
+  font-family: "Pretendard-Regular" !important;
+}
+
+p,
+h2,
+a,
+button {
+  font-family: "Pretendard-Regular" !important;
 }
 
 p {
   font-weight: 700;
   font-size: 18px;
-  letter-spacing: 2px;
+  // letter-spacing: 2px;
 }
 
 h2 {
@@ -51,16 +58,41 @@ a {
   width: 2100px;
   display: flex;
   padding-top: 50px;
-  transform: translate(-1400px);
+  // transform: translate(-1400px);
 }
 .container {
   width: 700px;
   height: 100%;
+
   .btn {
     height: 60px;
     background-color: #eee;
     border-radius: 10px;
     margin-bottom: 15px;
+    cursor: pointer;
+    transition: background-color 0.5s;
+    button {
+      height: 60px;
+      width: 650px;
+      border: none;
+      border-radius: 10px;
+      background-color: #566fee;
+
+      a {
+        height: 60px;
+        color: white;
+      }
+    }
+    &.choiced {
+      background-color: #5c77ffc6;
+      color: white !important;
+      a {
+        color: white;
+      }
+    }
+    &:hover {
+      background-color: rgb(196, 196, 196);
+    }
     input {
       width: 30%;
       height: 40px;
@@ -72,16 +104,14 @@ a {
       box-sizing: border-box;
       font-weight: 700;
     }
-    button {
+    p {
       height: 40px;
       margin: 10px;
+      margin-left: 30px;
+      line-height: 2.5;
       border: none;
-      :hover {
-        color: rgb(53, 167, 129);
-      }
-      p {
-        margin: 0;
-      }
+      letter-spacing: 5px;
+      display: inline-block;
     }
     a {
       font-size: 20px;
@@ -96,9 +126,25 @@ a {
       margin-right: 15px;
       color: gray;
 
-      :hover {
+      & :hover {
         color: green;
       }
+    }
+  }
+  .chooseEnd {
+    background-color: #566fee !important;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.5s;
+    &:hover {
+      background-color: #425ad5 !important;
+    }
+    #chooseEnd {
+      font-size: 23px;
+      line-height: 60px;
+      letter-spacing: 5px;
+      transition: 0.5s;
+      color: white;
     }
   }
 }
@@ -132,8 +178,8 @@ a {
     opacity: 0;
     transition: 1s;
     text-align: center;
-    height: 42px;
     margin: 70px 0;
+    line-height: 2;
   }
 }
 .container2 {
