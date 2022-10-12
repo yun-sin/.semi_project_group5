@@ -128,20 +128,12 @@ a {
 
 // rec.hmtl
 .wrapper {
-  position: relative;
-  h2,
-  div {
-    margin: 0;
+  #title {
+    opacity: 0;
+    transition: 1s;
+    text-align: center;
     height: 42px;
-    margin-bottom: 70px;
-  }
-  div {
-    background-color: #fafafa;
-    width: 1000px;
-    position: absolute;
-    top: 0;
-    transition: 3s;
-    transition-timing-function: linear;
+    margin: 70px 0;
   }
 }
 .container2 {
@@ -158,22 +150,33 @@ a {
       width: 200px;
       height: 470px;
       float: left;
-      margin: 0 50px 20px 0;
+      margin: 0 0 20px 60px;
       transition: 1s;
       cursor: pointer;
       h3 {
         font-weight: 700;
+        width: 200px;
+        padding: 0 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         a {
           text-decoration: none;
-          color: rgb(0, 0, 105);
+          color: rgb(8, 8, 212);
         }
       }
       h4 {
         font-weight: 500;
+        width: 200px;
+        padding: 0 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       p {
         font-weight: 400;
         font-size: 14px;
+        border-bottom: 1px solid #eee;
       }
 
       img {
