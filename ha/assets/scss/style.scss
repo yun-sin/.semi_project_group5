@@ -1,8 +1,13 @@
+@import "../../../park/culture_charge/assets/scss/common.scss";
+@import"../../../park/culture_charge/assets/scss/responsive.scss";
+@import"../../../park/culture_charge/assets/scss/variables.scss";
+
 main
 {
     height: 942px;
     width: 1362px;
     margin: auto;
+   
 
     //main-search
     .up-section
@@ -49,10 +54,23 @@ main
             height: 381px;
             margin: auto;
             display: flex;
-            flex-direction:column;
-            align-items:center;
+            //justify-content: space-around;
+            flex-wrap: wrap;
 
-          
+            div
+            {
+                width: 100px;
+                height: 100px;
+                object-fit:cover;
+                
+
+                img
+                {
+                    flex-grow: 1;
+                    flex-basis: 100px;
+                    width: 100px;
+                    height:100px;
+                }
+            }
         }
-    
 }
