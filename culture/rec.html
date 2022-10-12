@@ -14,10 +14,12 @@
     <!-- header -->
     <div data-include="inc/header.html"></div>
 
-    <!-- rec -->
+    <!-- loading -->
+    <div id="loading"></div>
 
+    <!-- rec -->
     <div class="wrapper">
-      <h2 id="title">
+      <h2 id="title2">
         <span class="span1"></span> <span class="span2"></span>
         <span class="span4"></span>
       </h2>
@@ -47,8 +49,10 @@
     </script>
 
     <script>
+      document.querySelector("#loading").classList.add("active");
+
       setTimeout(() => {
-        document.querySelector("#title").style.opacity = "1";
+        document.querySelector("#title2").style.opacity = "1";
       }, 2000);
 
       const date = window.sessionStorage.getItem("date"); // 날짜
@@ -91,6 +95,9 @@
           console.error(e);
           alert("요청을 처리하는데 실패했습니다.");
           return;
+        } finally {
+          // 로딩바 닫기
+          document.querySelector("#loading").classList.remove("active");
         }
 
         console.log(json);
@@ -101,7 +108,7 @@
           div.classList.add("rec_container");
           div.classList.add("animate__animated");
           div.classList.add("animate__fadeInUp");
-          div.style.setProperty("--animate-duration", i * 100 + 2000 + "ms");
+          div.style.setProperty("--animate-duration", i * 100 + 1000 + "ms");
 
           const img = document.createElement("img");
           img.classList.add("hvr-grow");
