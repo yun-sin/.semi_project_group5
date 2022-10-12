@@ -1,14 +1,11 @@
-/**
- * @ File Name: include.js
- * @ Author: 박다윗 (daxxx2030@gail.com)
- * @ Last Update: 2022-10-10 17:05:00
- * @ Description: header, footer => html ajax
- */
+// "data-include" 속성을 갖는 모든 요소에 대한 탐색
 Array.from(document.querySelectorAll("*[data-include]")).map(async (v, i) => {
+    // ex) data-include="inc/header.html"
     const include = v.dataset.include;
     let html = null;
 
     try {
+        // inc/header.html 파일의 소스코드를 가져온다.
         const response = await axios.get(include);
         html = response.data;
     } catch (e) {
@@ -16,6 +13,7 @@ Array.from(document.querySelectorAll("*[data-include]")).map(async (v, i) => {
     }
 
     if (html != null) {
+        // v의 안에 넣는 것이 아니라 v자체를 교체함
         v.outerHTML = html;
     }
 });
