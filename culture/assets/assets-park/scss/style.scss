@@ -7,11 +7,11 @@
 @charset "utf-8";
 
 // scss import
-@import "./reset.scss";
-@import "./responsive.scss";
+@import "../../scss/reset.scss";
+@import "../../scss/responsive.scss";
 @import "./common.scss";
 // Hover Library import
-@import url("../../../node_modules/hover.css/css/hover-min.css");
+@import url("../../../../node_modules/hover.css/css/hover-min.css");
 
 // index.html
 // header와 footer 사이 main
