@@ -1,0 +1,19 @@
+{
+  "type": "module",
+  "name": "02-javascript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "animations.js": "^1.0.10",
+    "aos": "^2.3.4",
+    "axios": "^0.27.2",
+    "chart.js": "^3.9.1",
+    "hover.css": "^2.3.2"
+  }
+}
