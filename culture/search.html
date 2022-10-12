@@ -7,12 +7,13 @@
     <title>문화충전</title>
     <link rel="stylesheet" href="assets/css/reset.min.css">
     <link rel="stylesheet" href="assets/css/style.min.css">
-    <link rel="stylesheet" href="../culture/assets/css/inc.min.css">
+    <link rel="stylesheet" href="assets/css/inc.min.css">
+    <link rel="shortcut icon" href="assets/favicon/bolt-solid.ico">
     <script src="https://kit.fontawesome.com/4691863309.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
-        <div data-include="../culture/inc/header.html"></div>
+        <div data-include="./culture/inc/header.html"></div>
     </header>
 
     <main>
@@ -32,29 +33,7 @@
                                 <option value="etc">기타</option>
                             </select>
                         </span>
-                        
-                        <!-- <span class="search_select">
-                            <select name="search_area" id="search_area">
-                                <option value="area">지역</option>
-                                <option value="Seoul">서울특별시</option>
-                                <option value="Busan">부산광역시</option>
-                                <option value="Dae-gu">대구광역시</option>
-                                <option value="Incheon">인천광역시</option>
-                                <option value="Gwangju">광주광역시</option>
-                                <option value="Daejeon">대전광역시</option>
-                                <option value="Ulsan">울산광역시</option>
-                                <option value="Gyeonggi-do">경기도</option>
-                                <option value="Gangwon-do">강원도</option>
-                                <option value="Chung-cheong bukdo">충청북도</option>
-                                <option value="Chung-cheong namdo">충청남도</option>
-                                <option value="Jeollabuk do">전라북도</option>
-                                <option value="Jeollanam-do">전라남도</option>
-                                <option value="Gyeongsangbuk-do">경상북도</option>
-                                <option value="Gyeongsangnam-do">경상남도</option>
-                                <option value="Jeju">제주특별자치도</option>
-                                <option value="Sejong">세종시</option>
-                            </select>
-                        </span> -->
+
                         <span class="search">
                             <input type="text" placeholder="검색어를 입력하세요">
                             <button type="button">
@@ -82,10 +61,10 @@
     </main>
 
     <footer>
-        <div data-include="../culture/inc/header.html"></div>
+        <div data-include="./culture/inc/header.html"></div>
     </footer>
 
-    <script src="../../../../node_modules/axios/dist/axios.min.js"></script>
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
     <script type="module">
         //공연목록
         (async()=>
