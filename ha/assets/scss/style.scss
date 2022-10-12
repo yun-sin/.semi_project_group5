@@ -47,7 +47,7 @@ main
         .div1
         {
             width: 1293px;
-            height: 381px;
+            height: 300px;
             margin: auto;
             display: flex;
             justify-content: space-around;
@@ -55,17 +55,17 @@ main
 
             div
             {
-                width: 100px;
-                height: 100px;
+                width: 200px;
+                height: 200px;
                 object-fit:cover;
                 
-
                 img
                 {
                     flex-grow: 1;
-                    flex-basis: 100px;
-                    width: 100px;
-                    height:100px;
+                    flex-basis: 150px;
+                    width: 150px;
+                    height:150px;
+                    margin:auto;
                 }
             }
         }
