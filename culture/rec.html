@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="assets/css/style.min.css" />
-    <link rel="shortcut icon" href="./assets/favicon/bolt-solid.ico" />
+    <link rel="stylesheet" href="assets/assets-jang/css/style.min.css" />
+    <link rel="shortcut icon" href="assets/favicon/bolt-solid.ico" />
     <script src="https://kit.fontawesome.com/6d6ba2de03.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   </head>
   <body>
     <!-- header -->
-    <div data-include="../culture/inc/header.html"></div>
+    <div data-include="inc/header.html"></div>
 
     <!-- rec -->
 
@@ -34,11 +34,10 @@
     </div>
 
     <!-- footer -->
-    <div data-include="../culture/inc/footer.html"></div>
+    <div data-include="inc/footer.html"></div>
 
-    <script src="../../node_modules/axios/dist/axios.min.js"></script>
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
     <script src="assets/js/include.js"></script>
-    <script src="../../node_modules/aos/dist/aos.js"></script>
     <script type="module">
       // header logo hover animation class
       import logoanimation from "./assets/js/logo-animation.js";
@@ -51,8 +50,6 @@
       setTimeout(() => {
         document.querySelector("#title").style.opacity = "1";
       }, 2000);
-
-      AOS.init();
 
       const date = window.sessionStorage.getItem("date"); // 날짜
       const lat = window.sessionStorage.getItem("lat"); // 위도
