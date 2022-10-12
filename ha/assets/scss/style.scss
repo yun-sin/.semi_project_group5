@@ -1,23 +1,20 @@
 @import "../../../park/culture_charge/assets/scss/common.scss";
+@import"../../../culture/assets/scss/inc.scss";
 @import"../../../park/culture_charge/assets/scss/responsive.scss";
 @import"../../../park/culture_charge/assets/scss/variables.scss";
 
 main
 {
-    height: 942px;
-    width: 1362px;
-    margin: auto;
-   
+    margin: auto;  
 
     //main-search
     .up-section
     {
-        width: 1000px;
+        width: 800px;
         height: 508px;
         margin:auto;
-        padding-top:108px;
+        padding-top:10px;
         
-
        .search_form
        {
         padding-left:10px;
@@ -33,7 +30,6 @@ main
             {
                 width: 670px;
                 height: 400px;
-                background-color: rgba(255,0,0,.3);
                 margin-right:10px;
                 
             }
@@ -54,7 +50,7 @@ main
             height: 381px;
             margin: auto;
             display: flex;
-            //justify-content: space-around;
+            justify-content: space-around;
             flex-wrap: wrap;
 
             div

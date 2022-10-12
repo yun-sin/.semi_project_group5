@@ -7,11 +7,12 @@
     <title>문화충전</title>
     <link rel="stylesheet" href="assets/css/reset.min.css">
     <link rel="stylesheet" href="assets/css/style.min.css">
+    <link rel="stylesheet" href="../culture/assets/css/inc.min.css">
     <script src="https://kit.fontawesome.com/4691863309.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
-        <div data-include="../park/inc/header.html"></div>
+        <div data-include="../culture/inc/header.html"></div>
     </header>
 
     <main>
@@ -81,7 +82,7 @@
     </main>
 
     <footer>
-        <div data-include="../park/inc/footer.html"></div>
+        <div data-include="../culture/inc/header.html"></div>
     </footer>
 
     <script src="../../../../node_modules/axios/dist/axios.min.js"></script>
@@ -104,7 +105,7 @@
                 return;
             }
 
-            for(let i=0; i<14; i++)
+            for(let i=0; i<5; i++)
             {
                 //a태그 만들기
                 const a=document.createElement("a");
@@ -129,16 +130,16 @@
                 document.querySelector(`.container${i}`).appendChild(img);
 
                 //h1 생성
-                const h1=document.createElement("h1");
-                //json데이터 중 title을 h1으로 생성
-                h1.innerHTML=`${json[i].title}`;
-                //h1을 div.container에 넣기
-                document.querySelector(`.container${i}`).appendChild(h1);
-
-                //h3
                 const h3=document.createElement("h3");
-                h3.innerHTML=`${json[i].spatialCoverage}`;
+                //json데이터 중 title을 h1으로 생성
+                h3.innerHTML=`${json[i].title}`;
+                //h1을 div.container에 넣기
                 document.querySelector(`.container${i}`).appendChild(h3);
+
+                //h3 장소
+                const h5=document.createElement("h5");
+                h5.innerHTML=`${json[i].spatialCoverage}`;
+                document.querySelector(`.container${i}`).appendChild(h5);
             }       
         })();
     </script>

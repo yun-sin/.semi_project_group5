@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- form -->
+    <form action="#" id="searchForm">
+      <fieldset>
+        <select name="search_genre" id="search_genre">
+          <option value="장르">장르</option>
+          <option value="무용">무용</option>
+          <option value="뮤지컬">뮤지컬</option>
+          <option value="연극">연극</option>
+          <option value="오페라">오페라</option>
+          <option value="콘서트">콘서트</option>
+          <option value="클래식">클래식</option>
+          <option value="기타">기타</option>
+        </select>
+        <input type="search" id="query" placeholder="공연제목 또는 공연장 입력" />
+        <button type="submit">검색</button>
+      </fieldset>
+    </form>
+
+    <script>
+      const KAKAO_REST_KEY = "b204b408f1f9390af9b568c47045350e";
+
+      let searchGenre = null;
+
+      document.querySelector("#searchForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const genreField = document.querySelector("#search_genre");
+        genre = genreField[genreField.selectedIndex].value;
+
+        currentPage = 1;
+        search();
+      });
+
+      /**
+       *
+       * 장르 선택
+       */
+      async function search() {
+        let json = null;
+
+        try {
+          const response = await axios.get("http://localhost:3001/response");
+          json = response.data.body.items.item;
+        } catch (error) {
+          console.error(`[Error Code] ${error.code}`);
+          console.error(`[Error Message] ${error.message}`);
+          let alertMsg = error.message;
+
+          if (error.response !== undefined) {
+            const errorMsg = `${error.response.status} error - ${error.response.statusText}`;
+            console.error(`[HTTP Status] ${errorMsg}`);
+            alertMsg += `\n${errorMsg}`;
+          }
+          alert(alertMsg);
+          return;
+        }
+
+        // console.log(genre);
+        // console.log(json);
+
+        // 장르 필터링 및 해당 json data 구현
+        json.some((v, i) => {
+          // const genre = v.subjectCategory;
+          // console.log(v);
+          if (v.subjectCategory == genre) {
+            let p = document.createElement("p");
+            p.innerHTML = v.title;
+            document.querySelector("#show").appendChild(p);
+          } /*  else {
+                    alert("장르를 선택해 주세요.");
+                    return true;
+                } */
+        });
+      }
+    </script>
+  </body>
+</html>
