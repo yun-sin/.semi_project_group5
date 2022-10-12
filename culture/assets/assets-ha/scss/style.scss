@@ -1,62 +1,93 @@
 // @import "../../../park/culture_charge/assets/scss/common.scss";
 // @import"../../../park/culture_charge/assets/scss/responsive.scss";
 // @import"../../../park/culture_charge/assets/scss/variables.scss";
+@import "../../scss/reset.scss";
 @import "../../scss/inc.scss";
 @import "../../scss/responsive.scss";
 @import "./font.scss";
 
 main {
-    margin: auto;
+    height: 100%;
 
     //main-search
     .up-section {
         width: 1000px;
-        height: 300px;
+        height: 500px;
         margin: auto;
-        padding-top: 10px;
 
         .search_form {
             padding-left: 10px;
+            padding-top: 10px;
+
+
+            .search_area{
+                display:flex;
+                flex-wrap: wrap;
+                margin-top: 10px;
+                
+                input{
+                    display: block;
+                    width: 110px;
+                    height: 30px;
+                    background-color: white;
+                    border:1px solid black;
+
+                }
+            }
         }
 
         .box1 {
             display: flex;
-            padding: 10px 10px 10px;
+            padding-top: 10px;
+            padding-left: 10px;
 
             .map {
-                width: 670px;
-                margin-right: 10px;
+                width: 630px;
             }
 
             .detail {
-                width: 300px;
-                height: 300px;
+                width: 250px;
+                height: 200px;
+                margin-left: 20px;
                 background-color: rgba(0, 255, 0, 0.3);
             }
         }
     }
 
     //down-section
-    .div1 {
-        width: 1293px;
-        height: 300px;
-        margin: auto;
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
+    .down-section{
+        width: 1000px;
+        margin:auto;
 
-        div {
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
+        .div1{
+            width: 1000px;
+            display: flex;
+            
+            div{
+                
+                width: 250px;
+                height: 400px;
+                flex-wrap: wrap;
+                justify-content: space-around;
+            
+                img{
+                    flex-grow: 1;
+                    width: 200px;
+                    flex-basis:200px;
+                    height: 250px;
+                }
 
-            img {
-                flex-grow: 1;
-                flex-basis: 150px;
-                width: 150px;
-                height: 150px;
-                margin: auto;
+                h4{
+                    font-size: 20px;
+                }
+
+                h5{
+                    font-size:18px;
+                }
+
             }
+            
         }
     }
+    
 }

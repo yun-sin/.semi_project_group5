@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문화충전</title>
+    <link rel="stylesheet" href="./assets/scss/reset.scss">
+    <link rel="stylesheet" href="../culture/assets/assets-ha/css/style.min.css">
+    <link rel="shortcut icon" href="assets/favicon/bolt-solid.ico">
+    <script src="https://kit.fontawesome.com/4691863309.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <div data-include="./inc/header.html"></div>
+    </header>
+
+    <main>
+        <!-- ha 양식 -->
+            <!-- <div class="search_form">
+                <form id="searchForm" name="searchForm">
+                    <fieldset>
+                        <span class="search_select">
+                            <select name="search_genre" id="search_genre">
+                                <option value="genre">장르</option>
+                                <option value="dancing">무용</option>
+                                <option value="musical">뮤지컬</option>
+                                <option value="theater">연극</option>
+                                <option value="opera">오페라</option>
+                                <option value="concert">콘서트</option>
+                                <option value="classic">클래식</option>
+                                <option value="etc">기타</option>
+                            </select>
+                        </span>
+
+                        <span class="search">
+                            <input type="text" placeholder="검색어를 입력하세요">
+                            <button type="button">
+                                <i class="fa-solid fa-magnifying-glass">검색</i>
+                            </button>
+                        </span>
+                    </fieldset>
+                </form> -->
+
+
+
+        <!-- form -->
+        <!-- 장르, 지역 선택 -->
+        <form action="#" id="searchForm">
+            <fieldset>
+                <select name="search_genre" id="search_genre">
+                    <option value="장르">장르</option>
+                    <option value="무용">무용</option>
+                    <option value="뮤지컬">뮤지컬</option>
+                    <option value="연극">연극</option>
+                    <option value="오페라">오페라</option>
+                    <option value="콘서트">콘서트</option>
+                    <option value="클래식">클래식</option>
+                    <option value="기타">기타</option>
+                </select>
+                <select name="search_area" id="search_area">
+                    <option value="all">지역</option>
+                    <option value="37.5666805,126.9784147">서울특별시</option>
+                    <option value="35.17944,129.07556">부산광역시</option>
+                    <option value="35.87222,128.60250">대구광역시</option>
+                    <option value="37.45639,126.70528">인천광역시</option>
+                    <option value="35.15972,126.85306">광주광역시</option>
+                    <option value="36.35111,127.38500">대전광역시</option>
+                    <option value="35.53889,129.31667">울산광역시</option>
+                    <option value="36.48750,127.28167">세종특별자치시</option>
+                    <option value="37.567167,127.190292">경기도</option>
+                    <option value="37.555837,128.209315">강원도</option>
+                    <option value="36.628503,127.929344">충청북도</option>
+                    <option value="36.557229,126.779757">충청남도</option>
+                    <option value="35.716705,127.144185">전라북도</option>
+                    <option value="34.819400,126.893113">전라남도</option>
+                    <option value="36.248647,128.664734">경상북도</option>
+                    <option value="35.259787,128.664734">경상남도</option>
+                    <option value="33.50000,126.51667">제주특별자치도</option>
+                </select>
+                <input type="search" id="query" placeholder="공연제목 또는 공연장 입력">
+                <button type="submit">검색</button>
+            </fieldset>
+        </form>
+
+
+<!-- ha 지도 상세 show -->
+<!--         </div>
+        <div class="box1">
+            <div id="map" style="width:100%; height: 300px;">
+                
+            </div>
+            <div class="detail">
+                상세정보창
+            </div>
+        </div>
+
+        <section class="down-section">
+            <div class="div1">
+
+            </div>
+        </section> -->
+
+
+        <!-- 지도, 상세, show -->
+        <!-- 지도 -->
+        <div id="map" style="width:750px;height:400px;"></div>
+
+        <!-- 상세 -->
+        <div id="detail"></div>
+
+        <!-- show -->
+        <div id="show"></div>
+    </main>
+
+
+    <!-- footer -->
+    <footer>
+        <div data-include="./inc/footer.html"></div>
+    </footer>
+
+
+
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
+    <script src="./assets/js/include.js"></script>
+    <!-- key등록 / services와 clusterer, drawing 라이브러리 불러오기 -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8b69768f7e98a4a1d4489b836f6a8972&libraries=services,clusterer,drawing"></script>
+
+
+    <script>
+        // kakao rest key
+        const KAKAO_REST_KEY = 'b204b408f1f9390af9b568c47045350e';
+
+        /** 
+         * 
+         * 
+         * 변수
+        */
+        let searchGenre = null;
+        let searchArea = null;
+        
+        let queryKeyword = null;
+        let currentPage = 1;
+
+        // let isEnd = false;
+
+        // 위도 경도
+        // let lngLocation = null;
+        // let latLocation = null;
+        var Lat = 0;
+        var Lng = 0;
+
+        /** 
+         * 
+         * 
+         * 양식 submit시 변수 할당과 search(), setCenter() 실행
+        */
+        document.querySelector('#searchForm').addEventListener('submit', e => {
+            e.preventDefault();
+
+            const genreField = document.querySelector('#search_genre');
+            genre = genreField[genreField.selectedIndex].value;
+            
+            const areaLatLng = document.querySelector('#search_area');
+            let location = areaLatLng[areaLatLng.selectedIndex].value;
+            let locationS = location.split(',');
+            Array.from(locationS);
+            Lat = locationS[0];
+            Lng = locationS[1];
+
+            const queryField = document.querySelector('#query');
+            queryKeyword = queryField.value.trim();
+
+            if (!queryKeyword) {
+                alert('검색어를 입력하세요.');
+                queryField.focus();
+                return;
+            }
+
+            currentPage  = 1;
+            search();
+            setCenter();
+        });
+        
+        /**
+         * 
+         * 
+         * 지도 이동시키기
+         */
+        function setCenter() {            
+            // 이동할 위도 경도 위치를 생성합니다 
+            var moveLatLon = new kakao.maps.LatLng(Lat, Lng);
+            
+            // 지도 중심을 이동 시킵니다
+            map.setCenter(moveLatLon);
+        }
+
+        /** 
+         * 
+         * 
+         * 장르 선택
+        */
+        async function search() {
+            let json = null;
+
+            try {
+                const response = await axios.get('http://localhost:3001/response');
+                json = response.data.body.items.item;
+            } catch (error) {
+                console.error(`[Error Code] ${error.code}`);
+                console.error(`[Error Message] ${error.message}`);
+                let alertMsg = error.message;
+
+                if (error.response !== undefined) {
+                    const errorMsg = `${error.response.status} error - ${error.response.statusText}`;
+                    console.error(`[HTTP Status] ${errorMsg}`);
+                    alertMsg += `\n${errorMsg}`;
+                }
+                alert(alertMsg);
+                return;
+            }
+            // console.log(genre);
+            // console.log(json);
+
+            /** 
+             * 
+             * 
+             * 장르 필터링 및 해당 json data 구현
+             * */ 
+            json.some((v, i) => {
+                // const genre = v.subjectCategory;
+                // console.log(v);
+                if (v.subjectCategory == genre) {
+                    // img h3 h4 p
+                    let div = document.createElement("div");
+                    let img = document.createElement("img")
+                    let h3 = document.createElement("h3")
+                    let h4 = document.createElement("h4")
+                    let p = document.createElement("p")
+                    img.setAttribute("src", v.referenceIdentifier);
+                    h3.innerHTML = v.title;
+                    h4.innerHTML = v.spatialCoverage;
+                    p.innerHTML = v.temporalCoverage;
+                    div.appendChild(img);
+                    div.appendChild(h3);
+                    div.appendChild(h4);
+                    div.appendChild(p);
+                    // 20, 18, 14 200 250
+                    document.querySelector('#show').appendChild(div);
+                } else if (genre == "장르") {
+                    alert("장르를 선택해 주세요.");
+                    return true;
+                }
+            });
+        }
+
+        /** 
+         * 
+         * 
+         * json data api
+        */
+        (async () => {
+            
+            let json = null;
+
+            try {
+                // test json
+                const response = await axios.get('http://localhost:3001/response');
+                json = response.data.body.items.item;
+                // console.log(json);
+
+                // api json
+                /* const response = await axios.get('http://api.kcisa.kr/openapi/service/rest/meta16/getkopis01', {
+                    params: {
+                        serviceKey: "b5c0289f-a465-4bd4-bb80-37b3b12a1150",
+                        numOfRows: 150,
+                        pageNo: 1,
+                    },
+                    header: {
+                        accept: "application/json",
+                    },
+                });
+                json = response.data.response.body.items.item;
+                console.log(json); */
+            } catch (e) {
+                console.error(e);
+                alert('요청을 처리하는데 실패했습니다.');
+                return;
+            }
+            /**
+             * collectionDb: "kopis01_공연목록"
+             * creator: "홈페이지"
+             * language: "kor"
+             * referenceIdentifier: "http://www.kopis.or.kr/upload/pfmPoster/PF_PF153974_190903_094953.gif"
+             * spatialCoverage: "성남아트센터"
+             * subDescription: "공연상태: 공연완료 오픈런: N"
+             * subjectCategory: "콘서트"
+             * temporalCoverage: "2019.12.07~2019.12.07"
+             * title: "장윤정 라이브 콘서트 [성남]"
+             * url: "http://www.kopis.or.kr/por/db/pblprfr/pblprfrView.do?menuId=MNU_00020&mt20Id=PF153974#20819"
+            */
+            
+            // data의 장소 이름을 배열로 만듬
+            let placeArray = [];
+            json.forEach((v, i) => {
+                placeArray.push(v.spatialCoverage);
+            });
+            // console.log(placeArray);
+
+            // data의 장소 이름을 중복없는 배열로 만듬
+            let placeName = Array.from(new Set(placeArray));
+            console.log(placeName);
+
+            // placeName 반복을 검색 함수 파라미터로 보냄
+            placeName.forEach((v, i) => {
+                search_map(v);
+            });
+        })();
+
+        /** 
+         * 
+         * 
+         * 지도 표시!!
+        */
+        // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+        var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+        
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            mapOption = {
+                center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };  
+        
+        // 지도를 생성합니다    
+        var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+        /** 
+         * 
+         * 
+         * placeName에서 이름을 가져와 지도에 검색 후 마커
+        */
+        function search_map(queryKeyword) {
+            // 장소 검색 객체를 생성합니다
+            var ps = new kakao.maps.services.Places(); 
+            
+            // 키워드로 장소를 검색합니다
+            ps.keywordSearch(queryKeyword, placesSearchCB); 
+            
+            // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+            function placesSearchCB (data, status, pagination) {
+                if (status === kakao.maps.services.Status.OK) {
+            
+                    // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+                    // LatLngBounds 객체에 좌표를 추가합니다
+                    var bounds = new kakao.maps.LatLngBounds();
+            
+                    for (var i=0; i<data.length; i++) {
+                        displayMarker(data[0]);
+                        bounds.extend(new kakao.maps.LatLng(data[0].y, data[0].x));
+                    }       
+            
+                    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+                    map.setBounds(bounds);
+                } 
+            }
+            
+            // 지도에 마커를 표시하는 함수입니다
+            function displayMarker(place) {
+                
+                // 마커를 생성하고 지도에 표시합니다
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: new kakao.maps.LatLng(place.y, place.x) 
+                });
+            
+                // 마커에 클릭이벤트를 등록합니다
+                kakao.maps.event.addListener(marker, 'click', function() {
+                    // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+                    infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+                    infowindow.open(map, marker);
+                });
+            }
+        }
+
+        /** 
+         * 
+         * 
+         * 공연목록
+        */
+/*         (async()=>
+        {
+            let json=null;
+
+            try
+            {
+                const response=await axios.get("http://localhost:3001/response");
+                json=response.data.body.items.item;
+                //console.log(json)
+            }
+            catch(e)
+            {
+                console.error(e);
+                alert("요청을 처리하는데 실패했습니다.");
+                return;
+            }
+
+            for(let i=0; i<5; i++)
+            {
+                //a태그 만들기
+                const a=document.createElement("a");
+                //a class 부여
+                a.classList.add(`a${i}`);
+                //json데이터의 url을 a에 넣기
+                a.setAttribute("href", `${json[i].url}`);
+                //div.div1에 넣기
+                document.querySelector('.div1').appendChild(a);
+
+                //div 생성 및 class="container" 부여
+                const div=document.createElement("div");
+                div.classList.add(`container${i}`);
+                //a에 넣기
+                document.querySelector(`.a${i}`).appendChild(div);
+
+                //img 생성
+                const img=document.createElement("img");
+                //json데이터 중 포스터 이미지를 img에 넣기
+                img.setAttribute('src', `${json[i].referenceIdentifier}`);
+                //생성된 <img>를 div.container에 넣기
+                document.querySelector(`.container${i}`).appendChild(img);
+
+                //h1 생성
+                const h3=document.createElement("h3");
+                //json데이터 중 title을 h1으로 생성
+                h3.innerHTML=`${json[i].title}`;
+                //h1을 div.container에 넣기
+                document.querySelector(`.container${i}`).appendChild(h3);
+
+                //h3 장소
+                const h5=document.createElement("h5");
+                h5.innerHTML=`${json[i].spatialCoverage}`;
+                document.querySelector(`.container${i}`).appendChild(h5);
+            }       
+        })();
+     */
+    </script>
+</body>
+</html>
