@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>문화충전</title>
-    <link rel="stylesheet" href="assets/scss/reset.scss">
-    <link rel="stylesheet" href="assets/assets-ha/css/style.min.css">
+    <link rel="stylesheet" href="./assets/scss/reset.scss">
+    <link rel="stylesheet" href="./assets/assets-ha/scss/style.scss">
     <link rel="shortcut icon" href="assets/favicon/bolt-solid.ico">
     <script src="https://kit.fontawesome.com/4691863309.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
-        <div data-include="./culture/inc/header.html"></div>
+        <div data-include="./inc/header.html"></div>
     </header>
 
     <main>
@@ -60,10 +60,11 @@
     </main>
 
     <footer>
-        <div data-include="./culture/inc/header.html"></div>
+        <div data-include="./inc/footer.html"></div>
     </footer>
 
     <script src="../node_modules/axios/dist/axios.min.js"></script>
+    <script src="./assets/js/include.js"></script>
     <script type="module">
         //공연목록
         (async()=>
@@ -122,7 +123,7 @@
         })();
     </script>
     
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5060f3f585ad0d8585577b6c763663ea"></script>
+<!--     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5060f3f585ad0d8585577b6c763663ea"></script>
     <script>
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
@@ -131,7 +132,7 @@
     };
 
     // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-    var map = new kakao.maps.Map(mapContainer, mapOption); 
+    var map = new kakao.maps.Map(mapContainer, mapOption);  -->
     </script>
 </body>
 </html>

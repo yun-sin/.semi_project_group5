@@ -1,0 +1,239 @@
+/**
+ * @ File Name: common.scss
+ * @ Author: 박다윗 (daxxx2030@gail.com)
+ * @ Last Update: 2022-10-10 17:05:00
+ * @ Description: 공통 적용 CSS
+ */
+@charset "utf-8";
+
+// scss import
+@import "./variables.scss";
+// font import
+// roboto, noto
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap'); */
+// pretendard
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard-dynamic-subset.css");
+// yg-jalnan
+/* @font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+} */
+
+// 한글 폰트
+.noto {
+    font-family: 'noto', sans-serif;
+}
+// 영문 폰트
+.roboto {
+    font-family: 'Roboto', sans-serif;
+}
+
+// 기본 폰트, 배경 색상, 아이콘 공통 적용
+body {
+    overflow-x: hidden;
+    height: 100vh;
+    font-family: 'Pretendard';
+    font-weight: $fw_r;
+    font-style: normal;
+    color: $fc_main;
+    background-color: $bg_main;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* // 구글 가변 아이콘 설정
+    .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 700,
+        'GRAD' 200,
+        'opsz' 48
+    } */
+}
+
+// header 공통 적용
+header {
+    // 크기 조정
+    width: 100%;
+    height: 70px;
+    padding: 0 50px;
+    box-sizing: border-box;
+    // 블럭 가로, 세로 정렬
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // 배경, 선
+    background-color: white;
+    border-bottom: 1px solid $line;
+    // header logo battery shape
+    #battery {
+        margin: 15px 0;
+        display: flex;
+        align-items: center;
+        // header logo
+        #header_logo {
+            // 애니메이션 설정
+            animation-name: none;
+            animation-duration: 0.3s;
+            animation-direction: alternate;
+            animation-timing-function: ease;
+            // hover 트렌지션
+            transition: all 0.3s ease;
+            // 로고 텍스트 hidden
+            overflow: hidden;
+            // 폰트 설정
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            // box style
+            padding: 11px;
+            border-radius: 10px 10px 10px 10px;
+            background-color: $mc;
+            a {
+                // 로고 아이콘 (fontawesome)
+                i {
+                    font-size: 18px;
+                    color: $pc_main;
+                }
+                // 로고 문화충전 텍스트
+                span {
+                    font-size: 16px;
+                    margin-left: 4px;
+                    display: none;
+                }
+            }
+        }
+        // 로고 over 애니메이션
+        @keyframes over {
+            0% {width: 15px;}
+            100% {width: 78.31px;}
+        }
+        // 로고 out 애니메이션
+        @keyframes out {
+            0% {width: 78.31px;}
+            100% {width: 15px;}
+        }
+        // battery piece shape
+        #bettery_shape {
+            width: 5px;
+            height: 15px;
+            border-radius: 0 10px 10px 0;
+            margin-left: 2px;
+            z-index: 1001px;
+            background-color: $mc_hover;
+            transition: all 0.3s ease;
+        }
+    }
+    // header logo hover
+    #battery:hover {
+        // 로고 배경, 텍스트 색상 hover시 변경
+        #header_logo {
+            background-color: $mc_hover;
+            a {
+                span{
+                    color: $pc_main;
+                }
+            }
+        }
+        // 배터리 조각 형태 색상 hover시 변경
+        #bettery_shape {
+            background-color: $pc_main;
+        }
+    }
+    // header 바로가기
+    #shortcut_nav {
+        // 바로가기 그룹
+        ul {
+            // 바로가기 가로 정렬
+            display: flex;
+            // 바로가기 리스트
+            li {
+                // 형태, 간격, 트렌지션 설정
+                padding: 12px;
+                box-sizing: border-box;
+                margin-left: 30px;
+                transition: all 0.3s ease;
+                // 텍스트 설정
+                a {
+                    font-size: $h5;
+                    font-weight: $fw_m;
+                    // 공간 부족시 줄바꿈 안함
+                    white-space: nowrap;
+                }
+            }
+            // shortcut_nav hover
+            li:hover {
+                background-color: $mc;
+            }
+        }
+    }
+}
+
+// footer 공통 적용
+footer {
+    // 크기 조정
+    width: 100%;
+    height: 25px;
+    // 색상 적용
+    background-color: $bg_footer;
+    color: rgba(255, 255, 255, 0.5);
+    // copyright
+    address {
+        font-size: 10px;
+        text-align: center;
+        line-height: 25px;
+    }
+}
+
+// 그림자
+.shadow {
+    box-shadow: 0 0 33px -10px rgba(0,0,0,0.4);
+}
+// 라운딩
+.border_r {
+    border-radius: 16px;
+}
+
+// 이미지
+img {
+    display: block;
+}
+
+// 텍스트 공통 적용
+h1 {
+    font-size: $h1;
+    margin: 10px 0;
+    line-height: 54px;
+}
+h2 {
+    font-size: $h2;
+    margin: 10px 0;
+    line-height: 45px;
+}
+h3 {
+    font-size: $h3;
+    margin: 10px 0;
+    line-height: 36px;
+}
+h4 {
+    font-size: $h4;
+    margin: 10px 0;
+    line-height: 30px;
+}
+h5 {
+    font-size: $h5;
+    line-height: 22px;
+}
+p {
+    font-size: $fs_m;
+    margin: 15px 0;
+    line-height: 23px;
+}
+b {
+    font-weight: $fw_b;
+}
+a {
+    color: $fc_main;
+}
