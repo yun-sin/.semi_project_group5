@@ -7,11 +7,12 @@
     <title>문화충전</title>
     <link rel="stylesheet" href="assets/css/reset.min.css">
     <link rel="stylesheet" href="assets/css/style.min.css">
+    <link rel="stylesheet" href="../culture/assets/css/inc.min.css">
     <script src="https://kit.fontawesome.com/4691863309.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
-        <div data-include="../park/inc/header.html"></div>
+        <div data-include="../culture/inc/header.html"></div>
     </header>
 
     <main>
@@ -32,7 +33,7 @@
                             </select>
                         </span>
                         
-                        <span class="search_select">
+                        <!-- <span class="search_select">
                             <select name="search_area" id="search_area">
                                 <option value="area">지역</option>
                                 <option value="Seoul">서울특별시</option>
@@ -53,7 +54,7 @@
                                 <option value="Jeju">제주특별자치도</option>
                                 <option value="Sejong">세종시</option>
                             </select>
-                        </span>
+                        </span> -->
                         <span class="search">
                             <input type="text" placeholder="검색어를 입력하세요">
                             <button type="button">
@@ -64,8 +65,8 @@
                 </form>
             </div>
             <div class="box1">
-                <div class="map">
-                    map
+                <div id="map" style="width:100%; height: 400px;">
+                    
                 </div>
                 <div class="detail">
                     상세정보창
@@ -81,7 +82,7 @@
     </main>
 
     <footer>
-        <div data-include="../park/inc/footer.html"></div>
+        <div data-include="../culture/inc/header.html"></div>
     </footer>
 
     <script src="../../../../node_modules/axios/dist/axios.min.js"></script>
@@ -104,29 +105,55 @@
                 return;
             }
 
-            for(let i=0; i<4; i++)
+            for(let i=0; i<5; i++)
             {
+                //a태그 만들기
+                const a=document.createElement("a");
+                //a class 부여
+                a.classList.add(`a${i}`);
+                //json데이터의 url을 a에 넣기
+                a.setAttribute("href", `${json[i].url}`);
+                //div.div1에 넣기
+                document.querySelector('.div1').appendChild(a);
+
                 //div 생성 및 class="container" 부여
                 const div=document.createElement("div");
-                div.classList.add("container");
-                //div.div1에 넣기
-                document.querySelector(".div1").appendChild(div);
+                div.classList.add(`container${i}`);
+                //a에 넣기
+                document.querySelector(`.a${i}`).appendChild(div);
 
                 //img 생성
                 const img=document.createElement("img");
                 //json데이터 중 포스터 이미지를 img에 넣기
                 img.setAttribute('src', `${json[i].referenceIdentifier}`);
-                //생성된 <img>를 div.conatiner에 넣기
-                document.querySelector(".container").appendChild(img);
+                //생성된 <img>를 div.container에 넣기
+                document.querySelector(`.container${i}`).appendChild(img);
 
                 //h1 생성
-                const h1=document.createElement("h1");
+                const h3=document.createElement("h3");
                 //json데이터 중 title을 h1으로 생성
-                h1.innerHTML=`${json[i].title}`;
+                h3.innerHTML=`${json[i].title}`;
                 //h1을 div.container에 넣기
-                document.querySelector(".container").appendChild(h1);
+                document.querySelector(`.container${i}`).appendChild(h3);
+
+                //h3 장소
+                const h5=document.createElement("h5");
+                h5.innerHTML=`${json[i].spatialCoverage}`;
+                document.querySelector(`.container${i}`).appendChild(h5);
             }       
         })();
+    </script>
+    
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5060f3f585ad0d8585577b6c763663ea"></script>
+    <script>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+
+    // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+    var map = new kakao.maps.Map(mapContainer, mapOption); 
     </script>
 </body>
 </html>
