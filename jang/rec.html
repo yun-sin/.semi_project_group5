@@ -17,7 +17,7 @@
   </head>
   <body>
     <!-- header -->
-    <div data-include="inc/header.html"></div>
+    <div data-include="../culture/inc/header.html"></div>
 
     <!-- rec -->
 
@@ -27,7 +27,7 @@
         <div id="box"></div>
       </div>
       <div class="row_container">
-        <!-- <div data-aos="fade-up" data-aos-delay="1000" class="rec_container">
+        <!-- <div class="rec_container animate__animated animate__fadeInUp">
           <img src="assets/img/salmon.jpg" alt="" />
           <h3><a href="#">전시1</a></h3>
           <h4>내용1</h4>
@@ -37,11 +37,19 @@
     </div>
 
     <!-- footer -->
-    <div data-include="inc/footer.html"></div>
+    <div data-include="../culture/inc/footer.html"></div>
 
     <script src="../../node_modules/axios/dist/axios.min.js"></script>
     <script src="assets/js/include.js"></script>
     <script src="../../node_modules/aos/dist/aos.js"></script>
+    <script type="module">
+      // header logo hover animation class
+      import logoanimation from "./assets/js/logo-animation.js";
+      // header logo hover animation 실행
+      logoanimation.logoOver();
+      logoanimation.logoOut();
+    </script>
+
     <script>
       document.querySelector("#box").style.transform = "translate(1000px,0)";
 
@@ -71,21 +79,36 @@
 
       (async () => {
         try {
-          const response = await axios.get("http://localhost:3001/response");
-          json = response.data;
+          // const response = await axios.get("http://localhost:3001/response");
+          const response = await axios.get("http://api.kcisa.kr/openapi/service/rest/meta16/getkopis01", {
+            params: {
+              serviceKey: `ff1e4d4d-6fdc-4642-96af-816af3919b8e`,
+              numOfRows: 30,
+              pageNo: 1,
+            },
+            header: {
+              accept: `application/json`,
+            },
+          });
+          json = response.data.response.body.items.item;
+          console.log(json);
         } catch (e) {
           console.error(e);
           alert("요청을 처리하는데 실패했습니다.");
           return;
         }
 
-        console.log(json.body.items.item);
+        console.log(json);
 
-        json.body.items.item.forEach((v, i) => {
+        json.forEach((v, i) => {
           const div = document.createElement("div");
-          div.dataset.aos = "fade-up";
-          div.dataset.aosDelay = 1000 + i * 100;
+
+          // div.dataset.aos = "fade-up";
+          // div.dataset.aosDelay = 1000 + i * 100;
           div.classList.add("rec_container");
+          div.classList.add("animate__animated");
+          div.classList.add("animate__fadeInUp");
+          div.style.setProperty("--animate-duration", i * 100 + 1000 + "ms");
 
           const img = document.createElement("img");
           const h3 = document.createElement("h3");

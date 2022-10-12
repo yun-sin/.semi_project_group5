@@ -12,7 +12,7 @@
   </head>
   <body>
     <!-- header -->
-    <div data-include="inc/header.html"></div>
+    <div data-include="../culture/inc/header.html"></div>
 
     <div class="main">
       <!-- index -->
@@ -28,8 +28,8 @@
         <div class="container">
           <h2>언제 <br />문화를 찾으시나요?</h2>
           <div class="btn">
-            <input type="date" id="calender" />
-            <a href="#" class="check" id="dateCheck"><i class="fa-regular fa-circle-check"></i></a>
+            <input type="date" data-date-inline-picker="true" id="calender" class="hvr-grow" />
+            <a href="#" class="check hvr-grow" id="dateCheck"><i class="fa-regular fa-circle-check"></i></a>
           </div>
         </div>
 
@@ -40,13 +40,13 @@
             <button>
               <a href="#" id="userLoc"><i class="fa-solid fa-location-crosshairs"></i> 현재 위치 찾기</a>
             </button>
-            <a href="#" class="ulCheck check"><i class="fa-regular fa-circle-check"></i></a>
+            <a href="#" class="ulCheck check hvr-grow"><i class="fa-regular fa-circle-check"></i></a>
           </div>
           <div class="btn">
             <button>
               <a href="#" id="chooseLoc"><i class="fa-solid fa-location-dot"></i> 선택 위치</a>
             </button>
-            <a href="#" class="clCheck check"><i class="fa-regular fa-circle-check"></i></a>
+            <a href="#" class="clCheck check hvr-grow"><i class="fa-regular fa-circle-check"></i></a>
           </div>
           <div class="map_wrap">
             <div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden"></div>
@@ -60,31 +60,41 @@
           <h2>어떤 <br />문화를 찾으시나요?</h2>
           <div class="btn">
             <button><p>공연</p></button>
-            <a href="#" class="conCheck check"><i class="fa-regular fa-circle-check"></i></a>
+            <a href="#" class="conCheck check hvr-grow"><i class="fa-regular fa-circle-check"></i></a>
           </div>
           <div class="btn">
             <button><p>전시</p></button>
-            <a href="#" class="exhCheck check"><i class="fa-regular fa-circle-check"></i></a>
+            <a href="#" class="exhCheck check hvr-grow"><i class="fa-regular fa-circle-check"></i></a>
           </div>
           <div class="btn">
             <button><p>체험</p></button>
-            <a href="#" class="expCheck check"><i class="fa-regular fa-circle-check"></i></a>
+            <a href="#" class="expCheck check hvr-grow"><i class="fa-regular fa-circle-check"></i></a>
           </div>
         </div>
       </div>
     </div>
 
     <!-- footer -->
-    <div data-include="inc/footer.html"></div>
+    <div data-include="../culture/inc/footer.html"></div>
 
     <script src="../../node_modules/axios/dist/axios.min.js"></script>
     <script src="assets/js/include.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3195742ef235b8c2f8ea8eab9072baf7&libraries=services"></script>
+
+    <script type="module">
+      // header logo hover animation class
+      import logoanimation from "./assets/js/logo-animation.js";
+      // header logo hover animation 실행
+      logoanimation.logoOver();
+      logoanimation.logoOut();
+    </script>
+
     <script>
       document.cookie = "safeCookie2=foo";
 
       const wrap = document.querySelector("#wrap");
       const calender = document.querySelector("#calender");
+      calender.valueAsDate = new Date();
       const now = new Date();
       const now2 = new Date();
       now.setDate(now.getDate() - 1);

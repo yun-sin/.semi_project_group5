@@ -4,6 +4,8 @@
 @import "./common.scss";
 @import "./responsive.scss";
 @import "./kakaomap.scss";
+@import "../../../../node_modules/hover.css/css/hover-min.css";
+@import "../../../../node_modules/animate.css/animate.css";
 
 @font-face {
   font-family: "Pretendard-Regular";
@@ -41,6 +43,10 @@ h2 {
   overflow: hidden;
 }
 
+a {
+  text-decoration: none;
+}
+
 #wrap {
   width: 2100px;
   display: flex;
@@ -56,13 +62,15 @@ h2 {
     border-radius: 10px;
     margin-bottom: 15px;
     input {
-      width: 50%;
+      width: 30%;
       height: 40px;
       background-color: #eee;
       margin: 10px;
+      margin-left: 30px;
       border-radius: 5px;
       padding: 10px;
       box-sizing: border-box;
+      font-weight: 700;
     }
     button {
       height: 40px;
@@ -101,6 +109,7 @@ h2 {
   width: 700px;
   height: 30px;
   margin: auto;
+  z-index: 999;
 
   ul {
     width: 70px;
@@ -150,6 +159,7 @@ h2 {
       height: 470px;
       float: left;
       margin: 0 50px 20px 0;
+      transition: 1s;
       cursor: pointer;
       h3 {
         font-weight: 700;
@@ -168,6 +178,8 @@ h2 {
 
       img {
         width: 200px;
+        height: 250px;
+        box-shadow: 10px 0px 13px -7px #000000;
       }
     }
   }
