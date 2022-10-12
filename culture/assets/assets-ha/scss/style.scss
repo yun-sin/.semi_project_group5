@@ -1,93 +1,86 @@
-// @import "../../../park/culture_charge/assets/scss/common.scss";
-// @import"../../../park/culture_charge/assets/scss/responsive.scss";
-// @import"../../../park/culture_charge/assets/scss/variables.scss";
 @import "../../scss/reset.scss";
 @import "../../scss/inc.scss";
-@import "../../scss/responsive.scss";
 @import "./font.scss";
+@import "../../../../node_modules/animate.css/animate.css";
+@import "../../../../node_modules/hover.css/css/hover-min.css";
 
-main {
-    height: 100%;
-
-    //main-search
-    .up-section {
-        width: 1000px;
-        height: 500px;
-        margin: auto;
-
-        .search_form {
-            padding-left: 10px;
-            padding-top: 10px;
-
-
-            .search_area{
-                display:flex;
-                flex-wrap: wrap;
-                margin-top: 10px;
-                
-                input{
-                    display: block;
-                    width: 110px;
-                    height: 30px;
-                    background-color: white;
-                    border:1px solid black;
-
-                }
-            }
-        }
-
-        .box1 {
-            display: flex;
-            padding-top: 10px;
-            padding-left: 10px;
-
-            .map {
-                width: 630px;
-            }
-
-            .detail {
-                width: 250px;
-                height: 200px;
-                margin-left: 20px;
-                background-color: rgba(0, 255, 0, 0.3);
-            }
-        }
-    }
-
-    //down-section
-    .down-section{
-        width: 1000px;
-        margin:auto;
-
-        .div1{
-            width: 1000px;
-            display: flex;
-            
-            div{
-                
-                width: 250px;
-                height: 400px;
-                flex-wrap: wrap;
-                justify-content: space-around;
-            
-                img{
-                    flex-grow: 1;
-                    width: 200px;
-                    flex-basis:200px;
-                    height: 250px;
-                }
-
-                h4{
-                    font-size: 20px;
-                }
-
-                h5{
-                    font-size:18px;
-                }
-
-            }
-            
-        }
-    }
+main{
+    width: 100%;
+    height: auto;
     
+    //search_form
+    .search_form{
+        width: 1200px;
+        height: 70px;
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+
+        #search_genre{
+            width: 155px;
+            height: 45px;
+            margin-left: 15px;
+        }
+        #search_area{
+            width: 332px;
+            height: 45px;
+            margin-left: 15px;
+        }
+        #query{
+            width: 433px;
+            height: 45px;
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+        button{
+            width: 100px;
+            height: 45px;
+        }
+    }
+
+    //map&detail
+    .box1{
+        width: 1200px;
+        height: 410px;
+        margin: auto;
+        display: flex;
+
+        #detail{
+            width: 400px;
+            height: 400px;
+            margin-left: 20px;
+        }
+    }
+
+    #show{
+        width: 1500px;
+        height: 460px;
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+
+        div{
+            width: 250px;
+            height: 460px;
+
+            img{
+                width: 200px;
+                height: 250px;
+                margin: auto;
+            }
+
+            h3{
+                font-size: 20px;
+            }
+            h4{
+                font-size:18px;
+            }
+            p{
+                font-size:14px;
+            }
+        }
+    }
+
 }
+    
