@@ -7,6 +7,7 @@
     <title>문화충전</title>
     <link rel="stylesheet" href="./assets/scss/reset.scss">
     <link rel="stylesheet" href="../culture/assets/assets-ha/css/style.min.css">
+    <link rel="stylesheet" href="assets/assets-park/css/common.min.css">
     <link rel="shortcut icon" href="assets/favicon/bolt-solid.ico">
     <script src="https://kit.fontawesome.com/4691863309.js" crossorigin="anonymous"></script>
 </head>
@@ -64,7 +65,7 @@
                 </form>
             </div>
             <div class="box1">
-                <div id="map" style="width:100%; height: 300px;">
+                <div id="map" style="width:100%; height: 350px;">
                     
                 </div>
                 <div class="detail">
@@ -129,14 +130,14 @@
                 //생성된 <img>를 div.container에 넣기
                 document.querySelector(`.container${i}`).appendChild(img);
 
-                //h1 생성
-                const h3=document.createElement("h3");
-                //json데이터 중 title을 h1으로 생성
-                h3.innerHTML=`${json[i].title}`;
-                //h1을 div.container에 넣기
-                document.querySelector(`.container${i}`).appendChild(h3);
+                //h4 생성
+                const h4=document.createElement("h4");
+                //json데이터 중 title을 h4으로 생성
+                h4.innerHTML=`${json[i].title}`;
+                //h3을 div.container에 넣기
+                document.querySelector(`.container${i}`).appendChild(h4);
 
-                //h3 장소
+                //h5 장소
                 const h5=document.createElement("h5");
                 h5.innerHTML=`${json[i].spatialCoverage}`;
                 document.querySelector(`.container${i}`).appendChild(h5);
