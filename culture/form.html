@@ -26,7 +26,7 @@
       <div id="wrap">
         <!-- form1 -->
         <div class="container">
-          <h2>언제 <br />문화를 찾으시나요?</h2>
+          <h2>언제 <br />공연을 찾으시나요?</h2>
           <div class="btn">
             <input type="date" data-date-inline-picker="true" id="calender" class="hvr-grow" />
             <a href="#" class="check hvr-grow" id="dateCheck"><i class="fa-regular fa-circle-check"></i></a>
@@ -35,7 +35,7 @@
 
         <!-- form2 -->
         <div class="container">
-          <h2>어디서 <br />문화를 찾으시나요?</h2>
+          <h2>어디서 <br />공연을 찾으시나요?</h2>
           <div class="btn">
             <button>
               <a href="#" id="userLoc"><i class="fa-solid fa-location-crosshairs"></i> 현재 위치 찾기</a>
@@ -97,10 +97,10 @@
     <!-- footer -->
     <div data-include="inc/footer.html"></div>
 
+    <!-- JavaScript 불러오기 -->
     <script src="../node_modules/axios/dist/axios.min.js"></script>
     <script src="assets/js/include.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3195742ef235b8c2f8ea8eab9072baf7&libraries=services"></script>
-
     <script type="module">
       // header logo hover animation class
       import logoanimation from "./assets/js/logo-animation.js";
@@ -109,243 +109,7 @@
       logoanimation.logoOut();
     </script>
 
-    <script>
-      document.cookie = "safeCookie2=foo";
-
-      const wrap = document.querySelector("#wrap");
-      const calender = document.querySelector("#calender");
-      calender.valueAsDate = new Date();
-      const now = new Date();
-      const now2 = new Date();
-      now.setDate(now.getDate() - 1);
-      console.log(now.getTime());
-
-      document.querySelector("#dateCheck").addEventListener("click", (e) => {
-        e.preventDefault();
-        const chooseDate = new Date(calender.value);
-
-        if (!calender.value) {
-          alert("날짜를 선택해주세요.");
-        } else if (chooseDate.getTime() < now.getTime()) {
-          alert("[" + now2.toLocaleDateString() + "] 이후의 날짜를 선택해주세요.");
-        } else {
-          document.querySelector(".i1").classList.remove("choose");
-          document.querySelector(".i2").classList.add("choose");
-          document.querySelector(".map_wrap").style.bottom = "60%";
-          wrap.style.transform = "translate(-700px)";
-          window.localStorage.setItem("date", calender.value);
-        }
-      });
-
-      /**
-       *
-       *
-       * KAKAO MAP API
-       *
-       *
-       */
-      let LAT = null;
-      let LOG = null;
-
-      var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-        mapOption = {
-          center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-          level: 5, // 지도의 확대 레벨
-        };
-
-      // 지도를 생성합니다
-      var map = new kakao.maps.Map(mapContainer, mapOption);
-
-      // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
-      if (navigator.geolocation) {
-        // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-        navigator.geolocation.getCurrentPosition(function (position) {
-          var lat = position.coords.latitude, // 위도
-            lon = position.coords.longitude; // 경도
-
-          var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-            message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
-
-          // 마커와 인포윈도우를 표시합니다
-          displayMarker(locPosition, message);
-        });
-      } else {
-        // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-
-        var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
-          message = "geolocation을 사용할수 없어요..";
-
-        displayMarker(locPosition, message);
-      }
-
-      // 지도에 마커와 인포윈도우를 표시하는 함수입니다
-      function displayMarker(locPosition, message) {
-        map.setCenter(locPosition);
-      }
-
-      // 주소-좌표 변환 객체를 생성합니다
-      var geocoder = new kakao.maps.services.Geocoder();
-
-      var marker = new kakao.maps.Marker(); // 클릭한 위치를 표시할 마커입니다
-      infowindow = new kakao.maps.InfoWindow({ zindex: 1 }); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
-
-      // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
-      // searchAddrFromCoords(map.getCenter(), displayCenterInfo);
-
-      // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
-      kakao.maps.event.addListener(map, "click", function (mouseEvent) {
-        searchDetailAddrFromCoords(mouseEvent.latLng, function (result, status) {
-          if (status === kakao.maps.services.Status.OK) {
-            var detailAddr = !!result[0].road_address ? "<div>도로명주소 : " + result[0].road_address.address_name + "</div>" : "";
-            detailAddr += "<div>지번 주소 : " + result[0].address.address_name + "</div>";
-
-            var content = '<div class="bAddr">' + '<span class="title">법정동 주소정보</span>' + detailAddr + "</div>";
-
-            // 마커를 클릭한 위치에 표시합니다
-            marker.setPosition(mouseEvent.latLng);
-            marker.setMap(map);
-
-            // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-            infowindow.open(map, marker);
-            document.querySelector(".map_text").innerHTML = '<div class="bAddr">' + '<span class="title">선택 위치</span>' + detailAddr + "</div>";
-            document.querySelector("#chooseLoc").innerHTML = '<i class="fa-solid fa-location-dot"></i> <span> ' + " 선택 위치 : " + result[0].address.address_name + "</span>";
-            document.querySelector("#chooseLoc").dataset.lat = mouseEvent.latLng.Ma;
-            document.querySelector("#chooseLoc").dataset.lon = mouseEvent.latLng.La;
-            document.querySelector("#chooseLoc").dataset.add = result[0].address.address_name;
-
-            infowindow.close();
-          }
-        });
-      });
-
-      // 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
-      kakao.maps.event.addListener(map, "idle", function () {
-        searchAddrFromCoords(map.getCenter(), displayCenterInfo);
-      });
-
-      function searchAddrFromCoords(coords, callback) {
-        // 좌표로 행정동 주소 정보를 요청합니다
-        geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
-      }
-
-      function searchDetailAddrFromCoords(coords, callback) {
-        // 좌표로 법정동 상세 주소 정보를 요청합니다
-        geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
-      }
-
-      // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
-      function displayCenterInfo(result, status) {
-        if (status === kakao.maps.services.Status.OK) {
-          var infoDiv = document.getElementById("centerAddr");
-
-          for (var i = 0; i < result.length; i++) {
-            // 행정동의 region_type 값은 'H' 이므로
-            if (result[i].region_type === "H") {
-              infoDiv.innerHTML = result[i].address_name;
-              break;
-            }
-          }
-        }
-      }
-
-      document.querySelector("#userLoc").addEventListener("click", (e) => {
-        if (navigator.geolocation) {
-          // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-          navigator.geolocation.getCurrentPosition(function (position) {
-            var lat = position.coords.latitude, // 위도
-              lon = position.coords.longitude; // 경도
-
-            var locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-            message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
-
-            // 마커와 인포윈도우를 표시합니다
-            displayMarker(locPosition, message);
-            marker.setPosition(locPosition);
-
-            var geocoder = new kakao.maps.services.Geocoder();
-
-            var coord = new kakao.maps.LatLng(lat, lon);
-            var callback = function (result, status) {
-              if (status === kakao.maps.services.Status.OK) {
-                document.querySelector(".map_text").innerHTML = '<div class="bAddr">' + '<span class="title">현재 위치</span>' + result[0].address.address_name + "</div>";
-                document.querySelector("#userLoc").innerHTML = '<i class="fa-solid fa-location-crosshairs"></i><span> ' + " 현재 위치 : " + result[0].address.address_name + "</span>";
-                document.querySelector("#userLoc").dataset.lat = lat;
-                document.querySelector("#userLoc").dataset.lon = lon;
-                document.querySelector("#userLoc").dataset.add = result[0].address.address_name;
-              }
-            };
-
-            geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
-          });
-        } else {
-          // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-
-          var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
-            message = "geolocation을 사용할수 없어요..";
-
-          displayMarker(locPosition, message);
-        }
-      });
-
-      document.querySelector(".ulCheck").addEventListener("click", (e) => {
-        e.preventDefault();
-        const userLoc = document.querySelector("#userLoc");
-        if (!userLoc.dataset.lat) {
-          alert("위치를 찾을 수 없습니다");
-        } else {
-          e.preventDefault();
-          document.querySelector(".i2").classList.remove("choose");
-          document.querySelector(".i3").classList.add("choose");
-          wrap.style.transform = "translate(-1400px)";
-          window.localStorage.setItem("lat", userLoc.dataset.lat);
-          window.localStorage.setItem("lon", userLoc.dataset.lon);
-          window.localStorage.setItem("add", userLoc.dataset.add);
-          // const state = { lat: userLoc.dataset.lat, lon: userLoc.dataset.lon };
-          // const url = "form.html?lat=" + userLoc.dataset.lat + "&lon=" + userLoc.dataset.lon;
-          // history.pushState(state, null, url);
-        }
-      });
-
-      document.querySelector(".clCheck").addEventListener("click", (e) => {
-        e.preventDefault();
-        const chooseLoc = document.querySelector("#chooseLoc");
-        if (!chooseLoc.dataset.lat) {
-          alert("위치를 선택해주세요.");
-        } else {
-          e.preventDefault();
-          document.querySelector(".i2").classList.remove("choose");
-          document.querySelector(".i3").classList.add("choose");
-          wrap.style.transform = "translate(-1400px)";
-          window.localStorage.setItem("lat", chooseLoc.dataset.lat);
-          window.localStorage.setItem("lon", chooseLoc.dataset.lon);
-          window.localStorage.setItem("add", chooseLoc.dataset.add);
-          // const state = { lat: chooseLoc.dataset.lat, lon: chooseLoc.dataset.lon };
-          // const url = "form.html?lat=" + chooseLoc.dataset.lat + "&lon=" + chooseLoc.dataset.lon;
-          // history.pushState(state, null, url);
-        }
-      });
-
-      document.querySelectorAll(".btn1").forEach((v, i) => {
-        v.addEventListener("click", (e) => {
-          v.classList.toggle("choiced");
-        });
-      });
-
-      document.querySelector(".chooseEnd").addEventListener("click", (e) => {
-        const choArr = [];
-        Array.from(document.querySelectorAll(".btn1")).forEach((v, i) => {
-          if (v.classList.contains("choiced")) {
-            choArr.push(v.dataset.genre);
-          }
-        });
-        console.log(choArr);
-        if (choArr.length == 0) {
-          alert("장르를 선택해주세요.");
-        } else {
-          window.localStorage.setItem("type", choArr);
-          window.location.href = "rec.html";
-        }
-      });
-    </script>
+    <!-- JavaScript 코드 -->
+    <script src="assets/js/form.js"></script>
   </body>
 </html>
