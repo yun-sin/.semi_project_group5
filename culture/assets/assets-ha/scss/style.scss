@@ -1,12 +1,15 @@
 @import "../../scss/reset.scss";
 @import "../../scss/inc.scss";
-@import "./font.scss";
-@import "../../../../node_modules/animate.css/animate.css";
-@import "../../../../node_modules/hover.css/css/hover-min.css";
-
-main{
+@font-face {
+    font-family: "Pretendard-Regular";
+    src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+  }
+    main{
     width: 100%;
     height: auto;
+    font-family: "Pretendard-Regular";
     
     //search_form
     .search_form{
@@ -51,18 +54,18 @@ main{
             margin-left: 20px;
         }
     }
-
+    //show
     #show{
         width: 1500px;
         height: 460px;
         margin: auto;
         display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
+        
 
         div{
             width: 250px;
             height: 460px;
+            text-align: center;
 
             img{
                 width: 200px;
@@ -71,16 +74,16 @@ main{
             }
 
             h3{
+                font-weight: 700;
                 font-size: 20px;
             }
             h4{
+                font-weight: 500;
                 font-size:18px;
             }
             p{
                 font-size:14px;
             }
         }
-    }
-
+    }    
 }
-    

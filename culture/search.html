@@ -62,7 +62,9 @@
             <div id="map" style="width:750px;height:400px;"></div>
 
             <!-- 상세 -->
-            <div id="detail"></div>
+            <div id="detail">
+  
+            </div>
         </div>
 
         <!-- show -->
@@ -76,7 +78,7 @@
     <script src="../node_modules/axios/dist/axios.min.js"></script>
     <script src="./assets/js/include.js"></script>
     
-    <!--키 등록/script key-->
+    <!--키 등록(script key)-->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5060f3f585ad0d8585577b6c763663ea&libraries=services,clusterer,drawing"></script>
     
     <script>
@@ -157,13 +159,13 @@
                 alert(alertMsg);
                 return;
             }
-            // console.log(genre);
-            // console.log(json);
+            //  console.log(genre);
+            //  console.log(json);
 
             //장르 필터링 및 json data 구현
             json.some((v, i) => {
-                // const genre = v.subjectCategory;
-                // console.log(v);
+                 const genre = v.subjectCategory;
+                //console.log(v);
                 if (v.subjectCategory == genre) {
                     // img h3 h4 p
                     let div = document.createElement("div");
