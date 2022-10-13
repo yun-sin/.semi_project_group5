@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>문화충전</title>
-    <link rel="stylesheet" href="./assets/scss/reset.scss">
-    <link rel="stylesheet" href="../culture/assets/assets-ha/css/style.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="./assets/assets-park/css/search.min.css">
+    <!-- 파비콘 -->
     <link rel="shortcut icon" href="assets/favicon/bolt-solid.ico">
+    <!-- 폰트 어썸 -->
     <script src="https://kit.fontawesome.com/4691863309.js" crossorigin="anonymous"></script>
+    <title>문화충전</title>
 </head>
 <body>
     <header>
@@ -16,78 +18,85 @@
     </header>
 
     <main>
-        <!-- form -->
-        <!-- 장르, 지역 선택 -->
-        <form action="#" id="searchForm">
-            <fieldset>
-                <select name="search_genre" id="search_genre">
-                    <option value="장르">장르</option>
-                    <option value="무용">무용</option>
-                    <option value="뮤지컬">뮤지컬</option>
-                    <option value="연극">연극</option>
-                    <option value="오페라">오페라</option>
-                    <option value="콘서트">콘서트</option>
-                    <option value="클래식">클래식</option>
-                    <option value="기타">기타</option>
-                </select>
-                <!-- <select name="search_area" id="search_area">
-                    <option value="all">지역</option>
-                    <option value="37.5666805,126.9784147">서울특별시</option>
-                    <option value="35.17944,129.07556">부산광역시</option>
-                    <option value="35.87222,128.60250">대구광역시</option>
-                    <option value="37.45639,126.70528">인천광역시</option>
-                    <option value="35.15972,126.85306">광주광역시</option>
-                    <option value="36.35111,127.38500">대전광역시</option>
-                    <option value="35.53889,129.31667">울산광역시</option>
-                    <option value="36.48750,127.28167">세종특별자치시</option>
-                    <option value="37.567167,127.190292">경기도</option>
-                    <option value="37.555837,128.209315">강원도</option>
-                    <option value="36.628503,127.929344">충청북도</option>
-                    <option value="36.557229,126.779757">충청남도</option>
-                    <option value="35.716705,127.144185">전라북도</option>
-                    <option value="34.819400,126.893113">전라남도</option>
-                    <option value="36.248647,128.664734">경상북도</option>
-                    <option value="35.259787,128.664734">경상남도</option>
-                    <option value="33.50000,126.51667">제주특별자치도</option>
-                </select> -->
-                <input type="search" id="query" placeholder="공연제목 또는 공연장 입력">
-                <button type="submit">검색</button>
-            </fieldset>
-        </form>
 
-        <form action="#" id="map_list">
-                <ul id="map_buttons">
-                    <li><button onclick="buttonClick(this.value)" type="button" id="a" value="37.5666805,126.9784147">서울특별시</button></li>
-                    <li><button onclick="buttonClick(this.value)" type="button" id="b" value="35.17944,129.07556">부산광역시</button></li>
-                    <li><button onclick="buttonClick(this.value)" type="button" id="c" value="35.87222,128.60250">대구광역시</button></li>
-                    <li><button onclick="buttonClick(this.value)" type="button" id="d" value="37.45639,126.70528">인천광역시</button></li>
-                    <li><button onclick="buttonClick(this.value)" type="button" id="e" value="35.15972,126.85306">광주광역시</button></li>
-                    <li><button onclick="buttonClick(this.value)" type="button" id="f" value="36.35111,127.38500">대전광역시</button></li>
-                    <li><button onclick="buttonClick(this.value)" type="button" id="g" value="35.53889,129.31667">울산광역시</button></li>
-                    <li><button onclick="buttonClick(this.value)" type="button" id="h" value="36.48750,127.28167">세종특별자치시</button></li>
-                    <li><button onclick="buttonClickDo(this.value)" type="button" id="i" value="37.567167,127.190292">경기도</button></li>
-                    <li><button onclick="buttonClickDo(this.value)" type="button" id="j" value="37.555837,128.209315">강원도</button></li>
-                    <li><button onclick="buttonClickDo(this.value)" type="button" id="k" value="36.628503,127.929344">충청북도</button></li>
-                    <li><button onclick="buttonClickDo(this.value)" type="button" id="l" value="36.557229,126.779757">충청남도</button></li>
-                    <li><button onclick="buttonClickDo(this.value)" type="button" id="m" value="35.716705,127.144185">전라북도</button></li>
-                    <li><button onclick="buttonClickDo(this.value)" type="button" id="n" value="34.819400,126.893113">전라남도</button></li>
-                    <li><button onclick="buttonClickDo(this.value)" type="button" id="o" value="36.248647,128.664734">경상북도</button></li>
-                    <li><button onclick="buttonClickDo(this.value)" type="button" id="p" value="35.259787,128.664734">경상남도</button></li>
-                    <li><button onclick="buttonClickDo(this.value)" type="button" id="q" value="33.50000,126.51667">제주특별자치도</button></li>
-                </ul>
-        </form>
 
-        <!-- 지도 표시 -->
-        <div id="map" style="width:750px;height:400px;"></div>
+        <section id="search_form_map">
+            <!-- form -->
+            <!-- 장르 선택 -->
+            <form action="#" id="searchForm">
+                <fieldset>
+                    <select name="search_genre" id="search_genre">
+                        <option value="장르">장르 선택</option>
+                        <option value="무용">무용</option>
+                        <option value="뮤지컬">뮤지컬</option>
+                        <option value="연극">연극</option>
+                        <option value="오페라">오페라</option>
+                        <option value="콘서트">콘서트</option>
+                        <option value="클래식">클래식</option>
+                        <option value="기타">기타</option>
+                    </select><input type="search" id="query" placeholder="공연제목 또는 공연장 입력"><button type="submit">검색</button>
+                    <!-- <select name="search_area" id="search_area">
+                        <option value="all">지역</option>
+                        <option value="37.5666805,126.9784147">서울특별시</option>
+                        <option value="35.17944,129.07556">부산광역시</option>
+                        <option value="35.87222,128.60250">대구광역시</option>
+                        <option value="37.45639,126.70528">인천광역시</option>
+                        <option value="35.15972,126.85306">광주광역시</option>
+                        <option value="36.35111,127.38500">대전광역시</option>
+                        <option value="35.53889,129.31667">울산광역시</option>
+                        <option value="36.48750,127.28167">세종특별자치시</option>
+                        <option value="37.567167,127.190292">경기도</option>
+                        <option value="37.555837,128.209315">강원도</option>
+                        <option value="36.628503,127.929344">충청북도</option>
+                        <option value="36.557229,126.779757">충청남도</option>
+                        <option value="35.716705,127.144185">전라북도</option>
+                        <option value="34.819400,126.893113">전라남도</option>
+                        <option value="36.248647,128.664734">경상북도</option>
+                        <option value="35.259787,128.664734">경상남도</option>
+                        <option value="33.50000,126.51667">제주특별자치도</option>
+                    </select> -->
+                </fieldset>
+            </form>
 
-        <!-- 상세 -->
-        <div id="detail"></div>
+            <!-- 지역 선택 버튼 -->
+            <ul id="map_buttons">
+                <li><button onclick="buttonClick(this.value)" type="button" id="a" value="37.5666805,126.9784147">서울특별시</button></li>
+                <li><button onclick="buttonClick(this.value)" type="button" id="b" value="35.17944,129.07556">부산광역시</button></li>
+                <li><button onclick="buttonClick(this.value)" type="button" id="c" value="35.87222,128.60250">대구광역시</button></li>
+                <li><button onclick="buttonClick(this.value)" type="button" id="d" value="37.45639,126.70528">인천광역시</button></li>
+                <li><button onclick="buttonClick(this.value)" type="button" id="e" value="35.15972,126.85306">광주광역시</button></li>
+                <li><button onclick="buttonClick(this.value)" type="button" id="f" value="36.35111,127.38500">대전광역시</button></li>
+                <li><button onclick="buttonClick(this.value)" type="button" id="g" value="35.53889,129.31667">울산광역시</button></li>
+                <li><button onclick="buttonClick(this.value)" type="button" id="h" value="36.48750,127.28167">세종특별자치시</button></li>
+                <li><button onclick="buttonClickDo(this.value)" type="button" id="i" value="37.567167,127.190292">경기도</button></li>
+                <li><button onclick="buttonClickDo(this.value)" type="button" id="j" value="37.555837,128.209315">강원도</button></li>
+                <li><button onclick="buttonClickDo(this.value)" type="button" id="k" value="36.628503,127.929344">충청북도</button></li>
+                <li><button onclick="buttonClickDo(this.value)" type="button" id="l" value="36.557229,126.779757">충청남도</button></li>
+                <li><button onclick="buttonClickDo(this.value)" type="button" id="m" value="35.716705,127.144185">전라북도</button></li>
+                <li><button onclick="buttonClickDo(this.value)" type="button" id="n" value="34.819400,126.893113">전라남도</button></li>
+                <li><button onclick="buttonClickDo(this.value)" type="button" id="o" value="36.248647,128.664734">경상북도</button></li>
+                <li><button onclick="buttonClickDo(this.value)" type="button" id="p" value="35.259787,128.664734">경상남도</button></li>
+                <li><button onclick="buttonClickDo(this.value)" type="button" id="q" value="33.50000,126.51667">제주특별자치도</button></li>
+            </ul>
+
+            <!-- 지도 표시 -->
+            <div id="map" style="width:750px;height:400px;"></div>
+        </section>
+
 
         <!-- show 추천 항목 리스트 -->
-        <div id="show">
+        <section id="show">
             <ul id="show_list">
+                <!-- <li>
+                    <a href="#">
+                        <img src="#" alt="#">
+                        <h3></h3>
+                        <h4></h4>
+                        <p></p>
+                    </a>
+                </li> -->
             </ul>
-        </div>
+        </section>
     </main>
 
     <!-- footer -->
@@ -271,7 +280,7 @@
                     // 태그 생성
                     let li = document.createElement("li");
                     let a = document.createElement("a");
-                    let div = document.createElement("div");
+                    // let div = document.createElement("div");
                     let img = document.createElement("img")
                     let h3 = document.createElement("h3")
                     let h4 = document.createElement("h4")
@@ -289,11 +298,11 @@
                     p.innerHTML = v.temporalCoverage;
 
                     // show에 하위 요소로 추가
-                    div.appendChild(img);
-                    div.appendChild(h3);
-                    div.appendChild(h4);
-                    div.appendChild(p);
-                    a.appendChild(div);
+                    a.appendChild(img);
+                    a.appendChild(h3);
+                    a.appendChild(h4);
+                    a.appendChild(p);
+                    // a.appendChild(div);
                     li.appendChild(a);
                     // h3: 20, h4: 18, h5: 14, img: 200 x 250
                     document.querySelector('#show_list').appendChild(li);
