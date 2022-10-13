@@ -30,7 +30,7 @@
                     <option value="클래식">클래식</option>
                     <option value="기타">기타</option>
                 </select>
-                <select name="search_area" id="search_area">
+                <!-- <select name="search_area" id="search_area">
                     <option value="all">지역</option>
                     <option value="37.5666805,126.9784147">서울특별시</option>
                     <option value="35.17944,129.07556">부산광역시</option>
@@ -49,10 +49,32 @@
                     <option value="36.248647,128.664734">경상북도</option>
                     <option value="35.259787,128.664734">경상남도</option>
                     <option value="33.50000,126.51667">제주특별자치도</option>
-                </select>
+                </select> -->
                 <input type="search" id="query" placeholder="공연제목 또는 공연장 입력">
                 <button type="submit">검색</button>
             </fieldset>
+        </form>
+
+        <form action="#" id="map_list">
+                <ul id="map_buttons">
+                    <li><button onclick="buttonClick(this.value)" type="button" id="a" value="37.5666805,126.9784147">서울특별시</button></li>
+                    <li><button onclick="buttonClick(this.value)" type="button" id="b" value="35.17944,129.07556">부산광역시</button></li>
+                    <li><button onclick="buttonClick(this.value)" type="button" id="c" value="35.87222,128.60250">대구광역시</button></li>
+                    <li><button onclick="buttonClick(this.value)" type="button" id="d" value="37.45639,126.70528">인천광역시</button></li>
+                    <li><button onclick="buttonClick(this.value)" type="button" id="e" value="35.15972,126.85306">광주광역시</button></li>
+                    <li><button onclick="buttonClick(this.value)" type="button" id="f" value="36.35111,127.38500">대전광역시</button></li>
+                    <li><button onclick="buttonClick(this.value)" type="button" id="g" value="35.53889,129.31667">울산광역시</button></li>
+                    <li><button onclick="buttonClick(this.value)" type="button" id="h" value="36.48750,127.28167">세종특별자치시</button></li>
+                    <li><button onclick="buttonClickDo(this.value)" type="button" id="i" value="37.567167,127.190292">경기도</button></li>
+                    <li><button onclick="buttonClickDo(this.value)" type="button" id="j" value="37.555837,128.209315">강원도</button></li>
+                    <li><button onclick="buttonClickDo(this.value)" type="button" id="k" value="36.628503,127.929344">충청북도</button></li>
+                    <li><button onclick="buttonClickDo(this.value)" type="button" id="l" value="36.557229,126.779757">충청남도</button></li>
+                    <li><button onclick="buttonClickDo(this.value)" type="button" id="m" value="35.716705,127.144185">전라북도</button></li>
+                    <li><button onclick="buttonClickDo(this.value)" type="button" id="n" value="34.819400,126.893113">전라남도</button></li>
+                    <li><button onclick="buttonClickDo(this.value)" type="button" id="o" value="36.248647,128.664734">경상북도</button></li>
+                    <li><button onclick="buttonClickDo(this.value)" type="button" id="p" value="35.259787,128.664734">경상남도</button></li>
+                    <li><button onclick="buttonClickDo(this.value)" type="button" id="q" value="33.50000,126.51667">제주특별자치도</button></li>
+                </ul>
         </form>
 
         <!-- 지도 표시 -->
@@ -113,22 +135,22 @@
             const genreField = document.querySelector('#search_genre');
             genre = genreField[genreField.selectedIndex].value;
             
-            const areaLatLng = document.querySelector('#search_area');
-            if (areaLatLng.selectedIndex < 9) {
-                let location = areaLatLng[areaLatLng.selectedIndex].value;
-                let locationS = location.split(',');
-                Array.from(locationS);
-                Lat = locationS[0];
-                Lng = locationS[1];
-                setCenter();
-            } else {
-                let location = areaLatLng[areaLatLng.selectedIndex].value;
-                let locationS = location.split(',');
-                Array.from(locationS);
-                doLat = locationS[0];
-                doLng = locationS[1];
-                setCenterOut();
-            }
+            // const areaLatLng = document.querySelector('#search_area');
+            // if (areaLatLng.selectedIndex < 9) {
+            //     let location = areaLatLng[areaLatLng.selectedIndex].value;
+            //     let locationS = location.split(',');
+            //     Array.from(locationS);
+            //     Lat = locationS[0];
+            //     Lng = locationS[1];
+            //     setCenter();
+            // } else {
+            //     let location = areaLatLng[areaLatLng.selectedIndex].value;
+            //     let locationS = location.split(',');
+            //     Array.from(locationS);
+            //     doLat = locationS[0];
+            //     doLng = locationS[1];
+            //     setCenterOut();
+            // }
             const queryField = document.querySelector('#query');
             queryKeyword = queryField.value.trim();
 
@@ -140,6 +162,23 @@
 
             search();
         });
+
+
+        function buttonClick (value) {
+                let locationS = value.split(',');
+                Array.from(locationS);
+                Lat = locationS[0];
+                Lng = locationS[1];
+                setCenter();
+        }
+
+        function buttonClickDo (valueDo) {
+                let locationS = valueDo.split(',');
+                Array.from(locationS);
+                doLat = locationS[0];
+                doLng = locationS[1];
+                setCenterOut();
+        }
         
         /**
          * 
