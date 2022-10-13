@@ -24,7 +24,7 @@ const span2 = document.querySelector(".span2");
 span2.innerHTML = add ? add + " 근처의" : "";
 
 const span4 = document.querySelector(".span4");
-span4.innerHTML = type ? type + "(을)를 추천해드릴게요." : "";
+span4.innerHTML = type ? type + "(을)를 찾아볼게요." : "";
 
 let count = 1;
 // let currentPage = 1;
@@ -32,41 +32,40 @@ let currentImg = 30;
 
 search();
 
-window.addEventListener("scroll", (e) => {
-  const scrollTop = window.scrollY;
+// window.addEventListener("scroll", (e) => {
+//   const scrollTop = window.scrollY;
 
-  const widowHeight = window.screen.availHeight;
+//   const widowHeight = window.screen.availHeight;
 
-  const documentHeight = document.body.scrollHeight;
+//   const documentHeight = document.body.scrollHeight;
 
-  const title2 = document.querySelector("#title2");
+//   const title2 = document.querySelector("#title2");
 
-  if (scrollTop + widowHeight >= documentHeight) {
-    // currentPage++;
-    currentImg += 30;
-    // 서버가 불안정하여 json데이터를 파일로 받아와 실행중인데 이 경우 page 설정이 불가하여 중복된 데이터를 불러옴
-    // ex) 0~30 , 0~60 , 0 90
-    console.log("추가검색, 현재 페이지 : " + currentImg);
-    search();
-  }
-});
+//   if (scrollTop + widowHeight >= documentHeight) {
+//     // currentPage++;
+//     currentImg += 30;
+//     // 서버가 불안정하여 json데이터를 파일로 받아와 실행중인데 이 경우 page 설정이 불가하여 중복된 데이터를 불러옴
+//     // ex) 0~30 , 0~60 , 0 90
+//     console.log("추가검색, 현재 페이지 : " + currentImg);
+//     search();
+//   }
+// });
 
 setTimeout(() => {
-  console.log(document.querySelector(".row_container").children);
   if (document.querySelector(".row_container").children.length == 0) {
     document.querySelector("#title2").style.opacity = "0";
     setTimeout(() => {
       console.log("맞춤 추천 결과가 없습니다.");
       title2.classList.add("animate__animated");
       title2.classList.add("animate__fadeInUp");
-      title2.innerHTML = "😢 앗! 맞춤 추천 결과가 없습니다.<br> <a href='search.html' id='text_link'><h2 id='title3'>상세 검색페이지를 이용해 보세요!</h2></a>";
+      title2.innerHTML = "😢 앗! 맞춤 추천 결과가 없는 것 같아요.<br> <a href='search.html' id='text_link'><h2 id='title3'>상세 검색페이지를 이용해 보세요!</h2></a>";
       document.querySelector("#title3").classList.add("animate__animated");
       setInterval(() => {
         document.querySelector("#title3").classList.toggle("animate__pulse");
       }, 1000);
     }, 1000);
   }
-}, 6000);
+}, 10000);
 
 async function search() {
   let json = null;
@@ -97,7 +96,7 @@ async function search() {
   json.forEach((v, i) => {
     // console.log(v.temporalCoverage);
     const period = v.temporalCoverage.split("~");
-    console.log(period);
+    // console.log(period);
     const choosed = new Date(date);
     const startDate = new Date(period[0]);
     startDate.setFullYear(startDate.getFullYear() + 3);
@@ -105,15 +104,15 @@ async function search() {
     endDate.setFullYear(endDate.getFullYear() + 3);
 
     let A = BigInt(choosed.getTime());
-    console.log(A);
+    // console.log(A);
     let B = BigInt(startDate.getTime());
     let C = BigInt(endDate.getTime());
     const A1 = ("" + A).substring(0, 6);
     const B1 = ("" + B).substring(0, 6);
     const C1 = ("" + C).substring(0, 6);
-    console.log(A1);
-    console.log(B1);
-    console.log(C1);
+    // console.log(A1);
+    // console.log(B1);
+    // console.log(C1);
 
     A = parseInt(A1); // 선택
     B = parseInt(B1); // 시작
@@ -125,7 +124,7 @@ async function search() {
     // if (type.includes(v.subjectCategory)) {
     if (true) {
       // 장르선택
-      if (A >= B && A <= C && count <= 10) {
+      if (A >= B && A <= C && count <= 30) {
         // if (count <= currentImg) {
         // 날짜선택
         // console.log("시작일" + startDate.getTime());
