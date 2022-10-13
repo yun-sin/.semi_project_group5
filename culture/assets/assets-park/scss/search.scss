@@ -193,6 +193,7 @@ header {
 footer {
   position: absolute;
   bottom: 0;
+  z-index: 9999;
   // 크기 조정
   width: 100%;
   height: 25px;
@@ -295,6 +296,7 @@ html {
 body {
   height: 100%;
 }
+
 main {
   width: 100%;
   height: 100%;
@@ -306,41 +308,157 @@ main {
   */
   #search_form_map {
     width: 80%;
+    max-width: 1200px;
     height: 100%;
     padding-top: 100px;
     box-sizing: border-box;
     margin: auto;
     position: relative;
-    background: rgb(250, 250, 250);
-    background: linear-gradient(90deg, rgba(250, 250, 250, 1) 0%, rgba(255, 255, 255, 1) 100%);
-    box-shadow: 5px 0px 6px -7px #000000;
 
     // 장르 선택 및 검색 양식
     #searchForm {
       width: 100%;
-      fieldset {
+
+      .date_genre_container {
         width: 100%;
-        .genre_container {
-          width: 100%;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+
+        @include mobile {
+          display: block;
+          font-size: 10px;
+        }
+        @include tablet {
+          font-size: 12px;
+        }
+
+        .date_container {
+          flex-grow: 1;
+          display: flex;
+          justify-content: space-between;
+          height: 40px;
+          // margin: 10px 5% 30px 0;
+          line-height: 40px;
           position: relative;
+          // padding-right: 30px;
+          @include mobile {
+            padding-right: 0;
+            margin: 0 0 50px;
+            width: 100%;
+          }
+
+          // 날짜 탭
+          .date-title {
+            width: 6vw;
+            height: 20px;
+            padding: 5px;
+            max-width: 60px;
+            overflow: hidden;
+            font-size: 0.8em;
+            box-sizing: border-box;
+            text-align: center;
+            line-height: 15px;
+            border-radius: 5px 5px 0 0;
+            position: absolute;
+            top: -20px;
+            left: 10px;
+            @include mobile {
+              left: 10px;
+            }
+            background-color: GRAY;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            box-shadow: inset 5px 0px 6px -7px #000000;
+            box-shadow: 5px 0px 6px -7px #000000;
+
+            &:hover {
+              background-color: $pc_main;
+              color: white;
+            }
+          }
+
+          // 달력 인풋
+          input {
+            height: 34px;
+            border-radius: 2px;
+            margin: 0 10px;
+            width: 100%;
+            box-shadow: 1px 1px 3px 1px #dadce0;
+          }
+        }
+        .genre_container {
+          flex-grow: 3;
+          position: relative;
+          display: flex;
+          transition: transform 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+
+          #genre_category_title {
+            background-color: gray;
+
+            //
+            // 사이드탭
+            //
+            &.category-title {
+              width: 6vw;
+              max-width: 60px;
+              overflow: hidden;
+              height: 20px;
+              padding: 5px;
+              font-size: 0.8em;
+              box-sizing: border-box;
+              text-align: center;
+              line-height: 15px;
+              border-radius: 5px 5px 0 0;
+              position: absolute;
+              top: -20px;
+              left: 10px;
+              @include mobile {
+                left: 10px;
+              }
+              background-color: GRAY;
+              font-weight: 600;
+              color: white;
+              cursor: pointer;
+              box-shadow: inset 5px 0px 6px -7px #000000;
+              box-shadow: 5px 0px 6px -7px #000000;
+
+              &:hover {
+                background-color: $pc_main;
+                color: white;
+              }
+            }
+          }
 
           #genre_buttons {
             // 장르 선택 각 버튼
+            width: 100%;
             display: flex;
+            justify-content: space-between;
+
+            .btn1 {
+              padding: 10px 0;
+            }
             li {
               cursor: pointer;
               display: block;
-              width: 115px;
-              height: 60px;
-              margin: 5px;
+              width: 100%;
+              margin: 1px 10px 30px 10px;
+              box-sizing: border-box;
+
+              @include mobile {
+                margin: 0 10px 30px 10px;
+                // padding-top: 20px;
+              }
               border: none;
-              border-radius: 10px;
+              border-radius: 2px;
               background-color: $bg_sub;
               transition: all 0.2s ease;
               text-align: center;
-              line-height: 60px;
+              // line-height: 40px;
               letter-spacing: 5px;
-              font-weight: 500;
+              font-weight: 700;
               box-shadow: 1px 1px 3px 1px #dadce0;
               &:hover {
                 background-color: $pc_main;
@@ -350,43 +468,60 @@ main {
                 background-color: $pc_main;
                 color: white !important;
               }
+
+              // ellipsis 처리
+              // width: 70px;
+              padding: 0 5px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              // white-space: nowrap;
             }
           }
         }
       }
-
+      // .title-cover {
+      // position: relative;
       // 검색창
       input {
         width: 90%;
-        height: 50px;
+        height: 3vw;
+        min-height: 30px;
+        max-height: 40px;
         border: 1px solid $line;
-        border-radius: 10px 0 0 10px;
+        border-radius: 2px 0 0 2px;
         background-color: $bg_sub;
         padding: 0 12px;
         box-sizing: border-box;
-        margin-bottom: 10px;
+        margin: 0 0 10px 0;
+        display: inline-block;
+        vertical-align: top;
+        box-shadow: 1px 1px 3px 1px #dadce0;
       }
 
       // 검색버튼
       button {
+        vertical-align: top;
+        display: inline-block;
         width: 10%;
-        height: 50px;
+        height: 3vw;
+        min-height: 30px;
+        max-height: 40px;
         border: none;
-        border-radius: 0 10px 10px 0;
+        border-radius: 0 2px 2px 0;
         transition: all 0.2s ease;
-        background-color: $pc_main;
+        background-color: gray;
+        box-shadow: 1px 1px 3px 1px #dadce0;
+        // position: absolute;
+        // top: -1px;
+        // right: 0;
+
         box-sizing: border-box;
         color: white;
-        font-size: 16px;
         font-weight: 600;
         letter-spacing: 5px;
         cursor: pointer;
-        transform: translate(0, 2px);
       }
-
-      button:hover {
-        background-color: $pc_main_hover;
-      }
+      // }
     }
 
     /** 
@@ -397,6 +532,7 @@ main {
 
       #map {
         border: 1px solid gray;
+        z-index: 3;
       }
 
       .map-category-title {
@@ -415,27 +551,25 @@ main {
         font-weight: 600;
         color: white;
         cursor: pointer;
-        z-index: 12;
-
-        &.fold {
-          z-index: 11;
-        }
+        transition: 0.5s ease-out;
+        box-shadow: inset 5px 0px 6px -7px #000000;
+        box-shadow: 5px 0px 6px -7px #000000;
 
         &:hover {
           background-color: $pc_main;
         }
       }
 
-      .map-category-cover {
-        width: 100px;
-        height: 100%;
-        position: absolute;
-        background-color: #fafafa;
-        top: 0;
-        right: -100px;
-        z-index: 10;
-        box-shadow: inset 5px 0px 6px -7px #000000;
-      }
+      // .map-category-cover {
+      //   width: 100px;
+      //   height: 100%;
+      //   position: absolute;
+      //   background-color: #fafafa;
+      //   top: 0;
+      //   right: -100px;
+      //   z-index: 10;
+      //   box-shadow: inset 5px 0px 6px -7px #000000;
+      // }
 
       #map-button-container {
         height: 99.1%;
@@ -443,7 +577,7 @@ main {
         position: absolute;
         right: 0;
         top: 0;
-        z-index: 9;
+        z-index: 0;
 
         transition: 0.5s ease-out;
         border: 1px solid gray;
@@ -485,32 +619,6 @@ main {
           }
         }
       }
-    }
-  }
-
-  //
-  // 사이드탭
-  //
-  .category-title {
-    width: 30px;
-    height: 60px;
-    font-size: 14px;
-    padding: 5px;
-    box-sizing: border-box;
-    text-align: center;
-    line-height: 25px;
-    border-radius: 0 5px 5px 0;
-    position: absolute;
-    top: 0;
-    right: -30px;
-    background-color: GRAY;
-    font-weight: 600;
-    color: white;
-    cursor: pointer;
-
-    &:hover {
-      background-color: $pc_main;
-      color: white;
     }
   }
 
@@ -571,4 +679,34 @@ main {
   &:hover {
     color: $pc_main;
   }
+}
+
+// 순서 안내 컬러
+.stepColor {
+  background-color: $pc_main !important;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+#body-wrapper {
+  min-height: 100%;
+  position: relative;
+}
+
+#body-content {
+  // margin-top: 100px;
+  padding-bottom: 25px; /* footer의 높이 */
+}
+
+footer {
+  width: 100%;
+  height: 25px; /* footer의 높이 */
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
