@@ -56,11 +56,11 @@
     }
     //show
     #show{
-        width: 1500px;
+        width: auto;
         height: 460px;
         margin: auto;
         display: flex;
-        
+        justify-content: space-around;
 
         div{
             width: 250px;
