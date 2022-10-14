@@ -83,7 +83,8 @@ document.querySelector("#searchForm").addEventListener("submit", (e) => {
           console.log("맞춤 추천 결과가 없습니다.");
           title2.classList.add("animate__animated");
           title2.classList.add("animate__fadeInUp");
-          title2.innerHTML = "😢 앗! 원하시는 공연을 찾을 수 없어요.<br> <a href='#top' id='text_link'><h2 id='title3'>다른 검색 키워드를 이용해 보세요!</h2></a>";
+          document.querySelector("#loading").classList.remove("active");
+          title2.innerHTML = "😢 앗! 원하시는 공연을 찾을 수 없어요.<br> <a href='#top' id='text_link'><h2 id='title3'>다른 키워드를 이용해 검색해보세요!</h2></a>";
           document.querySelector("#title3").classList.add("animate__animated");
           setInterval(() => {
             document.querySelector("#title3").classList.toggle("animate__pulse");
@@ -191,10 +192,7 @@ async function search() {
     }
     alert(alertMsg);
     return;
-  } finally {
-    document.querySelector("#loading").classList.remove("active");
   }
-
   console.log(json);
 
   // 변수
@@ -255,6 +253,8 @@ async function search() {
       // 장르선택
       // if (A >= B && A <= C && count <= 30) {
       if (A >= B && A <= C && count <= 40 && titleFilter) {
+        document.querySelector("#loading").classList.remove("active");
+
         console.log(v.temporalCoverage);
         console.log("title: " + v.title + " , stage : " + v.spatialCoverage);
         // 검색어
