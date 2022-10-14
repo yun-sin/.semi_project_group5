@@ -479,8 +479,15 @@ main {
       // .title-cover {
       // position: relative;
       // 검색창
+      #searchType {
+        width: 9%;
+        height: 3vw;
+        option {
+          border-radius: 0px;
+        }
+      }
       input {
-        width: 90%;
+        width: 80%;
         height: 3vw;
         min-height: 30px;
         max-height: 40px;
