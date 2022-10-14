@@ -1,11 +1,6 @@
 // kakao rest key
 const KAKAO_REST_KEY = "b204b408f1f9390af9b568c47045350e";
 
-/** KOPIS_공연목록 API */
-// https://www.culture.go.kr/data/openapi/openapiView.do?id=422&category=A&keyword=%EA%B3%B5%EC%97%B0&searchField=all&gubun=A#/default/%EC%9A%94%EC%B2%AD%EB%A9%94%EC%8B%9C%EC%A7%80_Get
-const KOPIS_KEY = "ff1e4d4d-6fdc-4642-96af-816af3919b8e";
-let currentPage = 1;
-
 /**
  *
  *
@@ -29,11 +24,22 @@ var doLng = 0;
 
 // 달력 today placeholder
 const nowDate = new Date();
+// console.log(nowDate);
+// document.querySelector("#startDay").valueAsDate = new Date(nowDate.setDate(nowDate.getDate() + 1));
 document.querySelector("#startDay").valueAsDate = new Date(nowDate);
 
 // 제목, 공연장 검색 구분
+// let searchType = true; // true : 제목검색  ,  false : 공연장검색
 let titleSearch = null;
 let stageSearch = null;
+// document.querySelector("#searchType").addEventListener("change", (e) => {
+//   if (e.currentTarget.value == "titleSearch") {
+//     titleSearch = e.currentTarget.value;
+//   } else {
+//     searchType = null;
+//     stageSearch = e.currentTarget.value;
+//   }
+// });
 
 /**
  *
@@ -147,26 +153,33 @@ async function search() {
 
   // 로딩창 띄우기
   document.querySelector("#loading").classList.add("active");
-  // 검색시 이전 검색 결과 제거
+
+  // 검색시 추천 항목 제거
   document.querySelector(".row_container").innerHTML = "";
+
   // 검색시 푸터 제거
   document.querySelector("#footer").style.display = "none";
 
   let json = null;
 
   try {
-    const response = await axios.get("http://api.kcisa.kr/openapi/service/rest/meta16/getkopis01", {
-      params: {
-        serviceKey: KOPIS_KEY,
-        numOfRows: 5,
-        pageNo: currentPage,
-      },
-      header: {
-        accept: "application/json",
-      },
-    });
-    json = response.data.response.body.items.item;
-    console.log(json);
+    // test json
+    const response = await axios.get("http://localhost:3002/response");
+    json = response.data.body.items.item;
+
+    // API JSON ------------- 수정
+    // const response = await axios.get('http://api.kcisa.kr/openapi/service/rest/meta16/getkopis01', {
+    //     params: {
+    //         serviceKey: "b5c0289f-a465-4bd4-bb80-37b3b12a1150",
+    //         numOfRows: 5,
+    //         pageNo: 1,
+    //     },
+    //     header: {
+    //         accept: "application/json",
+    //     },
+    // });
+    // json = response.data.response.body.items.item;
+    // console.log(json);
   } catch (error) {
     console.error(`[Error Code] ${error.code}`);
     console.error(`[Error Message] ${error.message}`);

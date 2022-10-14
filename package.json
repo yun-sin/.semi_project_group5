@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "animate.css": "^4.1.1",
     "animate.js": "^2.0.2",
     "animations.js": "^1.0.10",
     "aos": "^2.3.4",

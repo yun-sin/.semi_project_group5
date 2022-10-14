@@ -1,7 +1,7 @@
 // 로딩창 띄워줌
 document.querySelector("#loading").classList.add("active");
 
-/** form에서 유저가 선택했던 데이터를 가져옴 */
+// form에서 유저가 선택했던 데이터를 가져옴
 const date = window.localStorage.getItem("date"); // 날짜
 const lat = window.localStorage.getItem("lat"); // 위도
 const lon = window.localStorage.getItem("lon"); // 경도
@@ -13,7 +13,7 @@ console.log(lon); // 경도
 console.log(add); // 주소
 console.log(type); // 장르
 
-/** 어떤 키워드로 검색중인지 알려주는 텍스트 */
+// 어떤 키워드로 검색중인지 알려주는 타이틀
 const h2 = document.createElement("h2");
 const span1 = document.querySelector(".span1");
 span1.innerHTML = date ? date : "";
@@ -26,35 +26,11 @@ setTimeout(() => {
   document.querySelector("#title2").style.opacity = "1";
 }, 2000);
 
-// 검색 결과의 수
+// 검색 결과를 count
 let count = 1;
-// 원하는 결과의 수
-let currentImg = 10;
-// 검색한 API의 page
-let currentPage = 1;
 
 // 검색 실행
 search();
-
-// 무한 스크롤
-// window.addEventListener("scroll", (e) => {
-//   const scrollTop = window.scrollY;
-
-//   const widowHeight = window.screen.availHeight;
-
-//   const documentHeight = document.body.scrollHeight;
-
-//   const title2 = document.querySelector("#title2");
-
-//   if (scrollTop + widowHeight >= documentHeight) {
-//     // currentPage++;
-//     currentImg += 30;
-//     // 서버가 불안정하여 json데이터를 파일로 받아와 실행중인데 이 경우 page 설정이 불가하여 중복된 데이터를 불러옴
-//     // ex) 0~30 , 0~60 , 0 90
-//     console.log("추가검색, 현재 페이지 : " + currentImg);
-//     search();
-//   }
-// });
 
 // 검색 시작후 10초후에 검색 결과가 없을 경우 출력할 텍스트, search.html로 연결
 setTimeout(() => {
@@ -75,34 +51,24 @@ setTimeout(() => {
   }
 }, 10000);
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/** 검색 함수 */
+// 검색 함수
 async function search() {
   let json = null;
 
   try {
-    const response = await axios.get("http://api.kcisa.kr/openapi/service/rest/meta16/getkopis01", {
-      params: {
-        serviceKey: `0197b556-2aa3-44b3-ad89-6eeb90f6a185`,
-        numOfRows: 1000,
-        pageNo: currentPage,
-      },
-      header: {
-        accept: `application/json`,
-      },
-    });
+    const response = await axios.get("http://localhost:3002/response");
+    // const response = await axios.get("http://api.kcisa.kr/openapi/service/rest/meta16/getkopis01", {
+    //   params: {
+    //     serviceKey: `0197b556-2aa3-44b3-ad89-6eeb90f6a185`,
+    //     numOfRows: 1000,
+    //     pageNo: 1,
+    //   },
+    //   header: {
+    //     accept: `application/json`,
+    //   },
+    // });
     json = response.data.response.body.items.item;
-    // console.log(json);
+    console.log(json);
   } catch (e) {
     console.error(e);
     alert("요청을 처리하는데 실패했습니다.");
@@ -110,8 +76,9 @@ async function search() {
   }
 
   json.forEach((v, i) => {
+    // console.log(v.temporalCoverage);
     const period = v.temporalCoverage.split("~");
-
+    // console.log(period);
     const choosed = new Date(date);
     const startDate = new Date(period[0]);
     startDate.setFullYear(startDate.getFullYear() + 3);
@@ -119,29 +86,40 @@ async function search() {
     endDate.setFullYear(endDate.getFullYear() + 3);
 
     let A = BigInt(choosed.getTime());
+    // console.log(A);
     let B = BigInt(startDate.getTime());
     let C = BigInt(endDate.getTime());
     const A1 = ("" + A).substring(0, 6);
     const B1 = ("" + B).substring(0, 6);
     const C1 = ("" + C).substring(0, 6);
+    // console.log(A1);
+    // console.log(B1);
+    // console.log(C1);
 
     A = parseInt(A1); // 선택
     B = parseInt(B1); // 시작
-    C = parseInt(C1); // 끝
+    C = parseInt(C1); // 엔드
 
-    /** 검색 조건에 따라 필터링*/
-    // 장르선택
+    /**
+     * 검색 조건에 따라 필터링
+     */
+    // if (true) {
     if (type.includes(v.subjectCategory)) {
-      // 날짜 && 출력갯수
-      if (A >= B && A <= C && count <= currentImg) {
+      // 장르선택
+      if (A >= B && A <= C && count <= 30) {
         // 로딩바 닫기
         document.querySelector("#loading").classList.remove("active");
-
+        // if (count <= currentImg) {
+        // 날짜선택
+        // console.log("시작일" + startDate.getTime());
+        // console.log("선택일" + choosed.getTime());
+        // console.log("마감일" + endDate.getTime());
+        // console.log(v.subjectCategory);
         const div = document.createElement("div");
         div.classList.add("rec_container");
         div.classList.add("animate__animated");
         div.classList.add("animate__fadeInUp");
-        div.style.setProperty("--animate-duration", count * currentImg + 1000 + "ms");
+        div.style.setProperty("--animate-duration", count * 100 + 1000 + "ms");
         count++;
 
         const img = document.createElement("img");
@@ -162,7 +140,6 @@ async function search() {
         p.innerHTML = plusThreeYear;
         // 원래 공연기간
         // p.innerHTML = v.temporalCoverage;
-
         div.addEventListener("click", (e) => {
           window.open(v.url);
         });
@@ -177,14 +154,4 @@ async function search() {
       }
     }
   });
-
-  if (count < currentImg) {
-    currentPage++;
-    console.log("검색 결과가 부족합니다. 다음 페이지 검색을 시작합니다. page : " + currentPage);
-    if (currentPage >= 10) {
-      console.log(currentPage + "페이지까지 검색했지만 결과가 나오지 않아 검색을 중단합니다.");
-      return;
-    }
-    search();
-  }
 }

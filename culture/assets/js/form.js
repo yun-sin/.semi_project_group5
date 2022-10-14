@@ -2,14 +2,8 @@ document.cookie = "safeCookie2=foo";
 const wrap = document.querySelector("#wrap");
 
 /**
- *
- *
  * Page 1
- *
  * 언제 공연을 찾으시나요?
- *
- *
- *
  */
 const calender = document.querySelector("#calender");
 calender.valueAsDate = new Date();
@@ -37,14 +31,8 @@ document.querySelector("#dateCheck").addEventListener("click", (e) => {
 });
 
 /**
- *
- *
  * Page 2
- *
- * 어디서 문화를 찾으시나요?
- *
- *
- *
+ * 어디서 공연을 찾으시나요?
  */
 
 /**
