@@ -482,6 +482,12 @@ main {
       #searchType {
         width: 9%;
         height: 3vw;
+        margin: 0;
+        display: inline-block;
+        vertical-align: top;
+        .othersRed {
+          color: red;
+        }
         option {
           border-radius: 0px;
         }
@@ -640,6 +646,8 @@ main {
   &:hover {
     color: $pc_main;
   }
+  opacity: 0;
+  transition: 1s;
 }
 
 // 순서 안내 컬러
@@ -691,11 +699,13 @@ footer {
       cursor: pointer;
       h3 {
         font-weight: 700;
+        font-size: 20px;
         width: 200px;
         padding: 0 5px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        margin: 5px 0;
         a {
           text-decoration: none;
           color: rgb(8, 8, 212);
@@ -704,15 +714,25 @@ footer {
       h4 {
         font-weight: 500;
         width: 200px;
+        font-size: 14px;
         padding: 0 5px;
         overflow: hidden;
+        margin-top: 10px;
+        margin-bottom: 5px;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
       p {
+        text-align: right;
         font-weight: 400;
+        margin-bottom: 3px;
+        padding: 0 5px;
         font-size: 14px;
         border-bottom: 1px solid #eee;
+        &:last-of-type {
+          font-weight: 600;
+          text-align: center;
+        }
       }
 
       img {

@@ -54,9 +54,11 @@
                   </div>
                   <!-- 검색 (submit)버튼 -->
                   <div class="title-cover" style="width: 100%">
-                    <select name="searchType" id="searchType">
-                      <option value="titleSearch">제목검색</option>
-                      <option value="stageSearch">공연장검색</option>
+                    <select name="searchType" id="searchType" style="border-radius: 1px">
+                      <ul style="color: red">
+                        <li><option value="titleSearch">제목검색</option></li>
+                        <li><option value="stageSearch">공연장검색</option></li>
+                      </ul>
                     </select>
                     <input type="search" id="query" placeholder="공연제목 또는 공연장 입력" /><button type="submit" class="submitBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
                   </div>
@@ -115,9 +117,9 @@
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8b69768f7e98a4a1d4489b836f6a8972&libraries=services,clusterer,drawing"></script>
 
         <script type="module">
-           // header logo hover animation class
+          // header logo hover animation class
           import logoanimation from "./assets/js/logo-animation.js";
-          
+
           // kakao rest key
           const KAKAO_REST_KEY = "b204b408f1f9390af9b568c47045350e";
 
@@ -194,7 +196,7 @@
               // 검색시 출력부분으로 천천히 스크롤
               setTimeout(() => {
                 document.querySelector("#output_container").scrollIntoView({ behavior: "smooth" });
-              }, 2000);
+              }, 1000);
 
               setTimeout(() => {
                 if (document.querySelector(".row_container").children.length == 0) {
@@ -374,7 +376,7 @@
                 // console.log(v.subjectCategory);
                 // 장르선택
                 // if (A >= B && A <= C && count <= 30) {
-                if (A >= B && A <= C && count <= 30 && titleFilter) {
+                if (A >= B && A <= C && count <= 40 && titleFilter) {
                   console.log(v.temporalCoverage);
                   console.log("title: " + v.title + " , stage : " + v.spatialCoverage);
                   // 검색어
@@ -655,9 +657,17 @@
           //   document.querySelector("#map-button-container").style.transform = "translate(0, 0)";
           // });
 
-        // header logo hover animation 실행
-        logoanimation.logoOver();
-        logoanimation.logoOut();
+          // header logo hover animation 실행
+          logoanimation.logoOver();
+          logoanimation.logoOut();
+
+          window.addEventListener("scroll", (e) => {
+            if (window.scrollY > 200) {
+              document.querySelector("#going_up").style.opacity = 1;
+            } else {
+              document.querySelector("#going_up").style.opacity = 0;
+            }
+          });
         </script>
       </div>
       <!-- footer -->
