@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- CSS -->
     <link rel="stylesheet" href="./assets/assets-park/css/search.min.css" />
+    <link rel="stylesheet" href="./assets/css/inc.min.css" />
     <!-- 파비콘 -->
     <link rel="shortcut icon" href="assets/favicon/bolt-solid.ico" />
     <!-- 폰트 어썸 -->
@@ -113,7 +114,10 @@
         <!-- key등록 / services와 clusterer, drawing 라이브러리 불러오기 -->
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8b69768f7e98a4a1d4489b836f6a8972&libraries=services,clusterer,drawing"></script>
 
-        <script>
+        <script type="module">
+           // header logo hover animation class
+          import logoanimation from "./assets/js/logo-animation.js";
+          
           // kakao rest key
           const KAKAO_REST_KEY = "b204b408f1f9390af9b568c47045350e";
 
@@ -650,6 +654,10 @@
           //   e.currentTarget.style.zIndex = "11";
           //   document.querySelector("#map-button-container").style.transform = "translate(0, 0)";
           // });
+
+        // header logo hover animation 실행
+        logoanimation.logoOver();
+        logoanimation.logoOut();
         </script>
       </div>
       <!-- footer -->
