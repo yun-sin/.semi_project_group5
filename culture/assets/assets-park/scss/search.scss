@@ -21,6 +21,7 @@
 
 // scss import
 @import "./variables.scss";
+@import "../../scss/responsive.scss";
 // font import
 // roboto, noto
 /* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap'); */
@@ -174,6 +175,12 @@ header {
         box-sizing: border-box;
         margin-left: 30px;
         transition: all 0.3s ease;
+
+        @include mobile {
+          &.mobile_close {
+            display: none;
+          }
+        }
         // 텍스트 설정
         a {
           font-size: $h5;
@@ -288,7 +295,6 @@ a {
 
 // scss import
 @import "../../scss/reset.scss";
-@import "../../scss/responsive.scss";
 // Hover Library import
 @import url("../../../../node_modules/hover.css/css/hover-min.css");
 html {
@@ -476,15 +482,21 @@ main {
           }
         }
       }
-      // .title-cover {
-      // position: relative;
+      .title-cover {
+        background-color: $pc_main;
+      }
       // 검색창
       #searchType {
         width: 9%;
-        height: 3vw;
+        height: 2.5vw;
+        min-height: 37px;
+        max-height: 40px;
         margin: 0;
+        margin-right: -3px;
+        z-index: 3;
         display: inline-block;
         vertical-align: top;
+        border-radius: 2px 0 0 2px;
         .othersRed {
           color: red;
         }
@@ -498,7 +510,7 @@ main {
         min-height: 30px;
         max-height: 40px;
         border: 1px solid $line;
-        border-radius: 2px 0 0 2px;
+
         background-color: $bg_sub;
         padding: 0 12px;
         box-sizing: border-box;
@@ -517,13 +529,8 @@ main {
         min-height: 30px;
         max-height: 40px;
         border: none;
-        border-radius: 0 2px 2px 0;
         transition: all 0.2s ease;
-        background-color: gray;
-        box-shadow: 1px 1px 3px 1px #dadce0;
-        // position: absolute;
-        // top: -1px;
-        // right: 0;
+        background-color: $pc_main;
 
         box-sizing: border-box;
         color: white;
