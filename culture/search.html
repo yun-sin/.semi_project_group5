@@ -14,8 +14,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   </head>
   <body>
+    <!-- header -->
     <div data-include="./inc/header.html"></div>
 
+    <!-- loading -->
+    <div id="loading"></div>
+
+    <!-- search -->
     <div id="body-wrapper">
       <div id="body-content">
         <main>
@@ -48,7 +53,11 @@
                   </div>
                   <!-- 검색 (submit)버튼 -->
                   <div class="title-cover" style="width: 100%">
-                    <input type="search" id="query" placeholder="공연제목 또는 공연장 입력" required /><button type="submit" class="submitBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <select name="searchType" id="searchType">
+                      <option value="titleSearch">제목검색</option>
+                      <option value="stageSearch">공연장검색</option>
+                    </select>
+                    <input type="search" id="query" placeholder="공연제목 또는 공연장 입력" /><button type="submit" class="submitBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
                   </div>
                 </div>
               </fieldset>
@@ -88,22 +97,15 @@
             </div>
           </section>
 
-          <!-- show 추천 항목 리스트 -->
-          <section id="show">
-            <ul id="show_list">
-              <!-- <li>
-                    <a href="#">
-                        <img src="#" alt="#">
-                        <h3></h3>
-                        <h4></h4>
-                        <p></p>
-                    </a>
-                </li> -->
-            </ul>
-          </section>
+          <!-- 결과 출력 -->
+          <div id="output_container">
+            <a id="anchor"></a>
+            <h2 id="title2"></h2>
+            <div class="row_container"></div>
+          </div>
         </main>
 
-        <a href="#" id="going_up"><i class="fa-solid fa-angles-up"></i></a>
+        <a href="#top" id="going_up"><i class="fa-solid fa-angles-up"></i></a>
 
         <!-- 스크립트 -->
         <script src="../node_modules/axios/dist/axios.min.js"></script>
@@ -123,7 +125,9 @@
           let searchGenre = null;
           let searchArea = null;
 
-          let queryKeyword = null;
+          let queryKeyword = "";
+          const genreField = [];
+          let chooseDate = null;
 
           // 위도 경도
           // let lngLocation = null;
@@ -136,9 +140,23 @@
 
           // 달력 today placeholder
           const nowDate = new Date();
-          console.log(nowDate);
+          // console.log(nowDate);
           // document.querySelector("#startDay").valueAsDate = new Date(nowDate.setDate(nowDate.getDate() + 1));
           document.querySelector("#startDay").valueAsDate = new Date(nowDate);
+
+          // 제목, 공연장 검색 구분
+          // let searchType = true; // true : 제목검색  ,  false : 공연장검색
+          let titleSearch = null;
+          let stageSearch = null;
+          // document.querySelector("#searchType").addEventListener("change", (e) => {
+          //   if (e.currentTarget.value == "titleSearch") {
+          //     titleSearch = e.currentTarget.value;
+          //   } else {
+          //     searchType = null;
+          //     stageSearch = e.currentTarget.value;
+          //   }
+          // });
+
           /**
            *
            *
@@ -147,7 +165,6 @@
           document.querySelector("#searchForm").addEventListener("submit", (e) => {
             e.preventDefault();
 
-            const genreField = [];
             document.querySelectorAll(".btn1").forEach((v, i) => {
               if (v.classList.contains("choiced")) {
                 v.classList.add("animate__animated");
@@ -161,15 +178,36 @@
 
             if (genreField.length == 0) {
               alert("장르를 선택하세요. (복수선택 가능)");
+            } else {
+              chooseDate = document.querySelector("#startDay").value;
+              console.log("chooseDate : " + chooseDate);
+
+              const queryField = document.querySelector("#query");
+              queryKeyword = queryField.value.trim();
+              // console.log("queryKeyword : " + queryKeyword);
+              search();
+
+              // 검색시 출력부분으로 천천히 스크롤
+              setTimeout(() => {
+                document.querySelector("#output_container").scrollIntoView({ behavior: "smooth" });
+              }, 2000);
+
+              setTimeout(() => {
+                if (document.querySelector(".row_container").children.length == 0) {
+                  document.querySelector("#title2").style.opacity = "0";
+                  setTimeout(() => {
+                    console.log("맞춤 추천 결과가 없습니다.");
+                    title2.classList.add("animate__animated");
+                    title2.classList.add("animate__fadeInUp");
+                    title2.innerHTML = "😢 앗! 원하시는 공연을 찾을 수 없어요.<br> <a href='#top' id='text_link'><h2 id='title3'>다른 검색 키워드를 이용해 보세요!</h2></a>";
+                    document.querySelector("#title3").classList.add("animate__animated");
+                    setInterval(() => {
+                      document.querySelector("#title3").classList.toggle("animate__pulse");
+                    }, 1000);
+                  }, 1000);
+                }
+              }, 15000);
             }
-
-            const chooseDate = document.querySelector("#startDay").value;
-            // console.log("chooseDate : " + chooseDate);
-
-            const queryField = document.querySelector("#query");
-            queryKeyword = queryField.value.trim();
-            // console.log("queryKeyword : " + queryKeyword);
-            search();
           });
 
           function buttonClick(value) {
@@ -222,19 +260,26 @@
            * 장르 선택
            * 장르 필터링 및 해당 json data 구현
            */
+
+          let count = 1;
+
           async function search() {
             const list = document.querySelector("#show_list");
 
+            // 로딩창 띄우기
+            document.querySelector("#loading").classList.add("active");
+
             // 검색시 추천 항목 제거
-            Array.from(list.getElementsByTagName("li")).forEach((v, i) => {
-              list.removeChild(v);
-            });
+            document.querySelector(".row_container").innerHTML = "";
+
+            // 검색시 푸터 제거
+            document.querySelector("#footer").style.display = "none";
 
             let json = null;
 
             try {
               // test json
-              const response = await axios.get("http://localhost:3001/response");
+              const response = await axios.get("http://localhost:3002/response");
               json = response.data.body.items.item;
 
               // API JSON ------------- 수정
@@ -262,12 +307,11 @@
               }
               alert(alertMsg);
               return;
+            } finally {
+              document.querySelector("#loading").classList.remove("active");
             }
 
             console.log(json);
-
-            // 일정 개수만 출력하기 위한 변수 지정
-            let j = 0;
 
             // 변수
             console.log("queryKeyword : " + queryKeyword + "\nchooseDate : " + chooseDate + "\ngenreField : " + genreField);
@@ -275,44 +319,105 @@
             // 선택 날짜 : chooseDate
             // 선택 장르 : genreField
 
-            // 장르 필터링 및 해당 json data 구현
-            // json.some((v, i) => {
-            //   if (v.subjectCategory == genre) {
-            //     // 태그 생성
-            //     let li = document.createElement("li");
-            //     let a = document.createElement("a");
-            //     let img = document.createElement("img");
-            //     let h3 = document.createElement("h3");
-            //     let h4 = document.createElement("h4");
-            //     let p = document.createElement("p");
+            json.forEach((v, i) => {
+              // console.log(v.temporalCoverage);
+              const period = v.temporalCoverage.split("~");
+              // console.log(period);
+              const choosed = new Date(chooseDate);
+              const startDate = new Date(period[0]);
+              startDate.setFullYear(startDate.getFullYear() + 3);
+              const endDate = new Date(period[1]);
+              endDate.setFullYear(endDate.getFullYear() + 3);
 
-            //     // 태그 속성 추가
-            //     li.classList.add("recommend_item");
-            //     a.setAttribute("href", v.url);
-            //     a.setAttribute("target", "_blank");
-            //     img.setAttribute("src", v.referenceIdentifier);
+              let A = BigInt(choosed.getTime());
+              // console.log(A);
+              let B = BigInt(startDate.getTime());
+              let C = BigInt(endDate.getTime());
+              const A1 = ("" + A).substring(0, 6);
+              const B1 = ("" + B).substring(0, 6);
+              const C1 = ("" + C).substring(0, 6);
+              // console.log(A1);
+              // console.log(B1);
+              // console.log(C1);
 
-            //     // 태그 데이터 추가
-            //     h3.innerHTML = v.title;
-            //     h4.innerHTML = v.spatialCoverage;
-            //     p.innerHTML = v.temporalCoverage;
+              A = parseInt(A1); // 선택
+              B = parseInt(B1); // 시작
+              C = parseInt(C1); // 엔드
 
-            //     // show에 하위 요소로 추가
-            //     a.appendChild(img);
-            //     a.appendChild(h3);
-            //     a.appendChild(h4);
-            //     a.appendChild(p);
-            //     // a.appendChild(div);
-            //     li.appendChild(a);
-            //     // h3: 20, h4: 18, h5: 14, img: 200 x 250
-            //     document.querySelector("#show_list").appendChild(li);
-            //     j++;
-            //   } else if (genre == "장르") {
-            //     alert("장르를 선택해 주세요.");
-            //     return true;
-            //   }
-            //   return j == 9;
-            // });
+              /**
+               * 검색 조건에 따라 필터링
+               */
+              // if (count <= currentImg) {
+              // 날짜선택
+              // console.log("시작일" + startDate.getTime());
+              // console.log("선택일" + choosed.getTime());
+              // console.log("마감일" + endDate.getTime());
+              // console.log(v.subjectCategory);
+
+              let titleFilter = null;
+              const searchType = document.querySelector("#searchType");
+              console.log(searchType.value == "titleSearch");
+
+              if (searchType.value == "titleSearch") {
+                // console.log("제목으로 검색합니다.");
+                v.title.includes(queryKeyword) ? (titleFilter = true) : (titleFilter = false);
+              } else {
+                // console.log("공연장 이름으로 검색합니다.");
+                v.spatialCoverage.includes(queryKeyword) ? (titleFilter = true) : (titleFilter = false);
+              }
+
+              if (genreField.includes(v.subjectCategory)) {
+                // console.log(v.subjectCategory);
+                // 장르선택
+                // if (A >= B && A <= C && count <= 30) {
+                if (A >= B && A <= C && count <= 30 && titleFilter) {
+                  console.log(v.temporalCoverage);
+                  console.log("title: " + v.title + " , stage : " + v.spatialCoverage);
+                  // 검색어
+
+                  console.log("공연장 이름으로 검색합니다.");
+
+                  // if (v.title.includes(queryKeyword) || v.spatialCoverage.includes(queryKeyword)) {
+                  const div = document.createElement("div");
+                  div.classList.add("rec_container");
+                  div.classList.add("animate__animated");
+                  div.classList.add("animate__fadeInUp");
+                  div.style.setProperty("--animate-duration", count * 100 + 1000 + "ms");
+                  count++;
+                  // console.log(count);
+
+                  const img = document.createElement("img");
+                  img.classList.add("hvr-grow");
+                  const h3 = document.createElement("h3");
+                  const h4 = document.createElement("h4");
+                  const p1 = document.createElement("p");
+                  const p = document.createElement("p");
+
+                  img.setAttribute("src", v.referenceIdentifier);
+                  h3.innerHTML = v.title;
+                  h4.innerHTML = v.spatialCoverage;
+
+                  p1.innerHTML = v.subjectCategory;
+
+                  /** api가 대부분 과거의 공연정보 이기 때문에 공연 기간에 임시로 3년을 더해서 표현합니다. */
+                  let plusThreeYear = v.temporalCoverage.replaceAll("2020", "2023").replaceAll("2019", "2022").replaceAll("2018", "2021").replaceAll("2017", "2020");
+                  p.innerHTML = plusThreeYear;
+                  // 원래 공연기간
+                  // p.innerHTML = v.temporalCoverage;
+                  div.addEventListener("click", (e) => {
+                    window.open(v.url);
+                  });
+
+                  div.appendChild(img);
+                  div.appendChild(h3);
+                  div.appendChild(h4);
+                  div.appendChild(p1);
+                  div.appendChild(p);
+
+                  document.querySelector(".row_container").appendChild(div);
+                }
+              }
+            });
           }
 
           /**
@@ -324,6 +429,9 @@
            */
           (async () => {
             let json = null;
+
+            // 로딩창 띄우기
+            document.querySelector("#loading").classList.add("active");
 
             try {
               // test json
@@ -348,6 +456,8 @@
               console.error(e);
               alert("요청을 처리하는데 실패했습니다.");
               return;
+            } finally {
+              document.querySelector("#loading").classList.remove("active");
             }
             /**
              * collectionDb: "kopis01_공연목록"
@@ -371,7 +481,7 @@
 
             // data의 장소 이름을 중복없는 배열로 만듬
             let placeName = Array.from(new Set(placeArray));
-            console.log("지도에 표시한 장소");
+            // console.log("지도에 표시한 장소");
             // console.log(placeName);
 
             // placeName 반복을 검색 함수 파라미터로 보냄
