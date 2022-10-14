@@ -24,19 +24,19 @@ body {
 p,
 h2,
 a,
-button {
+button,
+input {
   font-family: "Pretendard-Regular" !important;
 }
 
 p {
   font-weight: 700;
-  font-size: 18px;
-  // letter-spacing: 2px;
+  font-size: 20px;
 }
 
 h2 {
   font-weight: 700;
-  font-size: 28px;
+  font-size: 20px;
   margin-bottom: 50px;
   letter-spacing: 1.5px;
   line-height: 1.5;
@@ -54,11 +54,17 @@ a {
   text-decoration: none;
 }
 
+//
+//
+//
+//
+// form.html
+//
+//
 #wrap {
   width: 2100px;
   display: flex;
   padding-top: 50px;
-  // transform: translate(-1400px);
 }
 .container {
   width: 700px;
@@ -66,7 +72,7 @@ a {
 
   .btn {
     height: 60px;
-    background-color: #eee;
+    background-color: $bg_sub;
     border-radius: 10px;
     margin-bottom: 15px;
     cursor: pointer;
@@ -76,39 +82,39 @@ a {
       width: 650px;
       border: none;
       border-radius: 10px;
-      background-color: #566fee;
-
+      background-color: $bg_sub;
+      text-align: left;
+      padding-left: 20px;
+      box-sizing: border-box;
       a {
         height: 60px;
-        color: white;
+        color: rgb(0, 0, 0);
       }
     }
     &.choiced {
       background-color: #5c77ffc6;
       color: white !important;
       a {
-        color: white;
+        color: #eee;
       }
     }
-    &:hover {
-      background-color: rgb(196, 196, 196);
-    }
     input {
-      width: 30%;
       height: 40px;
-      background-color: #eee;
+      font-size: 28px;
+      background-color: $bg_sub;
       margin: 10px;
       margin-left: 30px;
-      border-radius: 5px;
+      border: none;
       padding: 10px;
       box-sizing: border-box;
       font-weight: 700;
+      cursor: pointer;
     }
     p {
       height: 40px;
       margin: 10px;
       margin-left: 30px;
-      line-height: 2.5;
+      line-height: 40px;
       border: none;
       letter-spacing: 5px;
       display: inline-block;
@@ -132,8 +138,11 @@ a {
     }
   }
   .chooseEnd {
-    background-color: #566fee !important;
-    text-align: center;
+    background-color: gray;
+    &.cango {
+      background-color: #566fee !important;
+    }
+
     cursor: pointer;
     transition: 0.5s;
     &:hover {
@@ -145,6 +154,7 @@ a {
       letter-spacing: 5px;
       transition: 0.5s;
       color: white;
+      margin-left: 30px;
     }
   }
 }
@@ -164,7 +174,7 @@ a {
     justify-content: space-between;
 
     li {
-      color: #eee;
+      color: rgb(200, 200, 200);
     }
     .choose {
       color: #566fee;
@@ -172,6 +182,14 @@ a {
   }
 }
 
+//
+//
+//
+//
+//
+//
+//
+//
 // rec.hmtl
 .wrapper {
   #title2 {
@@ -189,10 +207,11 @@ a {
 
   .row_container {
     width: 100%;
-    // display: flex;
-    // justify-content: space-between;
     margin: 0;
+    box-shadow: inset 5px 0px 6px -7px #000000;
+    background-color: red;
     .rec_container {
+      box-shadow: 10px 0px 13px -7px #000000;
       width: 200px;
       height: 470px;
       float: left;
@@ -222,7 +241,9 @@ a {
       p {
         font-weight: 400;
         font-size: 14px;
-        border-bottom: 1px solid #eee;
+        &:last-of-type {
+          border-bottom: 1px solid gray;
+        }
       }
 
       img {
@@ -237,6 +258,8 @@ a {
     }
   }
 }
+
+// loading
 #loading {
   width: 100px;
   height: 100px;
@@ -255,4 +278,62 @@ a {
 
 #text_link {
   color: #566fee !important;
+}
+
+.row_container {
+  width: 100%;
+  margin: 0;
+  .rec_container {
+    width: 200px;
+    height: 470px;
+    float: left;
+    margin: 0 0 20px 60px;
+    transition: 1s;
+    cursor: pointer;
+    h3 {
+      font-weight: 700;
+      font-size: 20px;
+      width: 200px;
+      padding: 0 5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-bottom: 10px;
+      a {
+        text-decoration: none;
+        color: rgb(8, 8, 212);
+      }
+    }
+    h4 {
+      font-weight: 500;
+      width: 200px;
+      font-size: 14px;
+      padding: 0 5px;
+      overflow: hidden;
+
+      margin-bottom: 1px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    p {
+      text-align: right;
+      font-weight: 400;
+      margin-bottom: 3px;
+      padding: 0 5px;
+      font-size: 14px;
+      &:last-of-type {
+        font-weight: 600;
+      }
+    }
+
+    img {
+      width: 200px;
+      height: 250px;
+      box-shadow: 10px 0px 13px -7px #000000;
+    }
+
+    ::after {
+      clear: both;
+    }
+  }
 }

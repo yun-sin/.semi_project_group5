@@ -24,7 +24,7 @@ const span2 = document.querySelector(".span2");
 span2.innerHTML = add ? add + " 근처의" : "";
 
 const span4 = document.querySelector(".span4");
-span4.innerHTML = type ? type + "(을)를 찾아볼게요." : "";
+span4.innerHTML = type ? type + "(을)를 찾을게요." : "";
 
 let count = 1;
 // let currentPage = 1;
@@ -71,7 +71,7 @@ async function search() {
   let json = null;
 
   try {
-    const response = await axios.get("http://localhost:3001/response");
+    const response = await axios.get("http://localhost:3002/response");
     // const response = await axios.get("http://api.kcisa.kr/openapi/service/rest/meta16/getkopis01", {
     //   params: {
     //     serviceKey: `0197b556-2aa3-44b3-ad89-6eeb90f6a185`,
@@ -88,9 +88,6 @@ async function search() {
     console.error(e);
     alert("요청을 처리하는데 실패했습니다.");
     return;
-  } finally {
-    // 로딩바 닫기
-    document.querySelector("#loading").classList.remove("active");
   }
 
   json.forEach((v, i) => {
@@ -121,10 +118,12 @@ async function search() {
     /**
      * 검색 조건에 따라 필터링
      */
-    // if (type.includes(v.subjectCategory)) {
-    if (true) {
+    // if (true) {
+    if (type.includes(v.subjectCategory)) {
       // 장르선택
       if (A >= B && A <= C && count <= 30) {
+        // 로딩바 닫기
+        document.querySelector("#loading").classList.remove("active");
         // if (count <= currentImg) {
         // 날짜선택
         // console.log("시작일" + startDate.getTime());
@@ -137,17 +136,19 @@ async function search() {
         div.classList.add("animate__fadeInUp");
         div.style.setProperty("--animate-duration", count * 100 + 1000 + "ms");
         count++;
-        // console.log(count);
 
         const img = document.createElement("img");
         img.classList.add("hvr-grow");
         const h3 = document.createElement("h3");
         const h4 = document.createElement("h4");
+        const p1 = document.createElement("p");
         const p = document.createElement("p");
 
         img.setAttribute("src", v.referenceIdentifier);
         h3.innerHTML = v.title;
         h4.innerHTML = v.spatialCoverage;
+
+        p1.innerHTML = v.subjectCategory;
 
         /** api가 대부분 과거의 공연정보 이기 때문에 공연 기간에 임시로 3년을 더해서 표현합니다. */
         let plusThreeYear = v.temporalCoverage.replaceAll("2020", "2023").replaceAll("2019", "2022").replaceAll("2018", "2021").replaceAll("2017", "2020");
@@ -161,6 +162,7 @@ async function search() {
         div.appendChild(img);
         div.appendChild(h3);
         div.appendChild(h4);
+        div.appendChild(p1);
         div.appendChild(p);
 
         document.querySelector(".row_container").appendChild(div);

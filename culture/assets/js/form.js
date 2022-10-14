@@ -247,6 +247,7 @@ document.querySelector(".clCheck").addEventListener("click", (e) => {
 document.querySelectorAll(".btn1").forEach((v, i) => {
   v.addEventListener("click", (e) => {
     v.classList.toggle("choiced");
+    document.querySelector(".chooseEnd").classList.add("cango");
   });
 });
 
