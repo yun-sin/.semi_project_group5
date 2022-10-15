@@ -15,13 +15,8 @@ const userData = {
 };
 console.log(userData);
 
-/** 검색 실행
- *
- * currentPage : 현재 검색한 API의 page (1페이지당 1000개의 data)
- * targetPage : 원하는 결과의 수를 못채웠을때 API의 몇페이지 까지 검색할지
- * count : 현재 출력된 검색 결과의 수
- * currentImg : 원하는 결과의 수
- *
+/**
+ * 검색 실행
  */
 let count = 0;
 // search(userData, currentPage, targetPage, count, currentImg);

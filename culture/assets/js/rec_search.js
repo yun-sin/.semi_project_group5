@@ -1,5 +1,13 @@
 import { KOPIS_KEY } from "./key.js";
 
+/** 검색
+ * ueseData : 유저가 선택한 검색 데이터
+ * currentPage : 현재 검색한 API의 page (1페이지당 1000개의 data)
+ * targetPage : 원하는 결과의 수를 못채웠을때 API의 몇페이지 까지 검색할지
+ * count : 현재 출력된 검색 결과의 수
+ * currentImg : 원하는 결과의 수
+ */
+
 async function search(userData, currentPage, targetPage, count, currentImg) {
   let json = null;
   // console.log(userData);
@@ -71,8 +79,6 @@ async function search(userData, currentPage, targetPage, count, currentImg) {
         /** api가 대부분 과거의 공연정보 이기 때문에 공연 기간에 임시로 3년을 더해서 표현합니다. */
         let plusThreeYear = v.temporalCoverage.replaceAll("2020", "2023").replaceAll("2019", "2022").replaceAll("2018", "2021").replaceAll("2017", "2020");
         p.innerHTML = plusThreeYear;
-        // 원래 공연기간
-        // p.innerHTML = v.temporalCoverage;
 
         div.addEventListener("click", (e) => {
           window.open(v.url);
@@ -91,8 +97,8 @@ async function search(userData, currentPage, targetPage, count, currentImg) {
 
   if (count < currentImg) {
     currentPage++;
-
     console.log("검색 결과가 부족합니다. 다음 페이지 검색을 시작합니다. page : " + currentPage);
+
     if (currentPage >= targetPage) {
       document.querySelector(".span4").innerHTML = count ? count + "개의 공연을 찾았습니다." : "";
       // 로딩바 닫기
@@ -100,6 +106,7 @@ async function search(userData, currentPage, targetPage, count, currentImg) {
       console.log(currentPage + "페이지까지 검색했지만 결과가 나오지 않아 검색을 중단합니다.");
       return;
     }
+
     search(userData, currentPage, targetPage, count, currentImg);
   } else {
     console.log("[검색완료] " + currentPage + "페이지 까지 검색하여 " + count + "개의 공연을 찾았습니다.");
