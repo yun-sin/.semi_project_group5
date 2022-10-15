@@ -1,4 +1,5 @@
 import search from "./search_search.js";
+import { KOPIS_KEY } from "./key.js";
 
 // 변수
 let currentPage = 1;
@@ -53,7 +54,7 @@ document.querySelector("#searchForm").addEventListener("submit", (e) => {
       document.querySelector("#output_container").scrollIntoView({ behavior: "smooth" });
     }, 1000);
 
-    // 검색후 15초이후에도 검색결과가 없으면 출력
+    // 검색후 10초이후에도 검색결과가 없으면 출력
     setTimeout(() => {
       if (document.querySelector(".row_container").children.length == 0) {
         document.querySelector("#title2").style.opacity = "0";
@@ -61,7 +62,7 @@ document.querySelector("#searchForm").addEventListener("submit", (e) => {
           console.log("맞춤 추천 결과가 없습니다.");
           title2.classList.add("animate__animated");
           title2.classList.add("animate__fadeInUp");
-          document.querySelector("#loading").classList.remove("active");
+          document.querySelector("#loading").classList.remove("active"); // 로딩바 닫기
           title2.innerHTML = "😢 앗! 원하시는 공연을 찾을 수 없어요.<br> <a href='#top' id='text_link'><h2 id='title3'>다른 키워드를 이용해 검색해보세요!</h2></a>";
           document.querySelector("#title3").classList.add("animate__animated");
           setInterval(() => {
@@ -69,7 +70,7 @@ document.querySelector("#searchForm").addEventListener("submit", (e) => {
           }, 1000);
         }, 1000);
       }
-    }, 15000);
+    }, 10000);
   }
 });
 
@@ -111,11 +112,9 @@ function setCenterOut() {
   zoomOut();
 }
 
-/**
- * json data api
- * 데이터 장소명을 중복없이 배열로 처리
- * search_map 함수 호출을 통해 지도에 표시
- */
+// /**
+//  * json data api * 데이터 장소명을 중복없이 배열로 처리 * search_map 함수 호출을 통해 지도에 표시
+//  */
 // (async () => {
 //   let json = null;
 
@@ -123,24 +122,18 @@ function setCenterOut() {
 //   document.querySelector("#loading").classList.add("active");
 
 //   try {
-//     // test json
-//     const response = await axios.get("http://localhost:3001/response");
-//     json = response.data.body.items.item;
-//     // console.log(json);
-
 //     // API JSON ------------- 수정
-//     // const response = await axios.get('http://api.kcisa.kr/openapi/service/rest/meta16/getkopis01', {
-//     //     params: {
-//     //         serviceKey: "b5c0289f-a465-4bd4-bb80-37b3b12a1150",
-//     //         numOfRows: 100,
-//     //         pageNo: 1,
-//     //     },
-//     //     header: {
-//     //         accept: "application/json",
-//     //     },
-//     // });
-//     // json = response.data.response.body.items.item;
-//     // console.log(json);
+//     const response = await axios.get("http://api.kcisa.kr/openapi/service/rest/meta16/getkopis01", {
+//       params: {
+//         serviceKey: KOPIS_KEY,
+//         numOfRows: 100,
+//         pageNo: 1,
+//       },
+//       header: {
+//         accept: "application/json",
+//       },
+//     });
+//     json = response.data.response.body.items.item;
 //   } catch (e) {
 //     console.error(e);
 //     alert("요청을 처리하는데 실패했습니다.");
@@ -148,18 +141,6 @@ function setCenterOut() {
 //   } finally {
 //     document.querySelector("#loading").classList.remove("active");
 //   }
-//   /**
-//    * collectionDb: "kopis01_공연목록"
-//    * creator: "홈페이지"
-//    * language: "kor"
-//    * referenceIdentifier: "http://www.kopis.or.kr/upload/pfmPoster/PF_PF153974_190903_094953.gif"
-//    * spatialCoverage: "성남아트센터"
-//    * subDescription: "공연상태: 공연완료 오픈런: N"
-//    * subjectCategory: "콘서트"
-//    * temporalCoverage: "2019.12.07~2019.12.07"
-//    * title: "장윤정 라이브 콘서트 [성남]"
-//    * url: "http://www.kopis.or.kr/por/db/pblprfr/pblprfrView.do?menuId=MNU_00020&mt20Id=PF153974#20819"
-//    */
 
 //   // data의 장소 이름을 배열로 만듬
 //   let placeArray = [];
@@ -181,8 +162,6 @@ function setCenterOut() {
 // })();
 
 // /**
-//  *
-//  *
 //  * 지도 표시!!
 //  */
 // // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
@@ -198,8 +177,6 @@ function setCenterOut() {
 // var map = new kakao.maps.Map(mapContainer, mapOption);
 
 // /**
-//  *
-//  *
 //  * 지도 검색 및 마커 표시
 //  * placeName에서 이름을 가져와 지도에 검색 후 마커
 //  */
@@ -245,8 +222,6 @@ function setCenterOut() {
 // }
 
 // /**
-//  *
-//  *
 //  * 지도 확대 수준
 //  */
 // // 지도 레벨은 지도의 확대 수준을 의미합니다
@@ -267,15 +242,13 @@ function setCenterOut() {
 //   map.setLevel(10);
 // }
 
-/**
- *
- *
- * 지도 확대, 축소 가능 여부
- */
-// 버튼 클릭에 따라 지도 확대, 축소 기능을 막거나 풀고 싶은 경우에는 map.setZoomable 함수를 사용합니다
+// /**
+//  * 지도 확대, 축소 가능 여부
+//  */
+// // 버튼 클릭에 따라 지도 확대, 축소 기능을 막거나 풀고 싶은 경우에는 map.setZoomable 함수를 사용합니다
 // function setZoomable(zoomable) {
-//     // 마우스 휠로 지도 확대,축소 가능여부를 설정합니다
-//     map.setZoomable(zoomable);
+//   // 마우스 휠로 지도 확대,축소 가능여부를 설정합니다
+//   map.setZoomable(zoomable);
 // }
 
 //////////////////////////////////////////////////////////////////////////////////////

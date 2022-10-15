@@ -20,7 +20,7 @@ console.log(userData);
  */
 let count = 0;
 // search(userData, currentPage, targetPage, count, currentImg);
-search(userData, 1, 20, count, 5);
+search(userData, 1, 20, count, 3);
 
 /**
  * 어떤 키워드로 검색중인지 알려주는 텍스트
