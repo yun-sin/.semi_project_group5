@@ -69,23 +69,23 @@
 
             try {
                 // test json
-                const response = await axios.get('http://localhost:3001/response');
-                json = response.data.body.items.item;
-                console.log(json);
+                // const response = await axios.get('http://localhost:3001/response');
+                // json = response.data.body.items.item;
+                // console.log(json);
 
                 // api json
-                // const response = await axios.get('http://api.kcisa.kr/openapi/service/rest/meta16/getkopis01', {
-                //     params: {
-                //         serviceKey: "b5c0289f-a465-4bd4-bb80-37b3b12a1150",
-                //         numOfRows: 14,
-                //         pageNo: 1,
-                //     },
-                //     header: {
-                //         accept: "application/json",
-                //     },
-                // });
-                // json = response.data.response.body.items.item;
-                // console.log(json);
+                const response = await axios.get('http://api.kcisa.kr/openapi/service/rest/meta16/getkopis01', {
+                    params: {
+                        serviceKey: "b5c0289f-a465-4bd4-bb80-37b3b12a1150",
+                        numOfRows: 14,
+                        pageNo: 1,
+                    },
+                    header: {
+                        accept: "application/json",
+                    },
+                });
+                json = response.data.response.body.items.item;
+                console.log(json);
             } catch (e) {
                 console.error(e);
                 alert('요청을 처리하는데 실패했습니다.');
