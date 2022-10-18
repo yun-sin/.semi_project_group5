@@ -35,7 +35,8 @@
 > ### index.html 
 >
 >  - <img width="670" alt="image" src="https://user-images.githubusercontent.com/99275134/196382930-b306852a-7477-4564-8ba0-14998c00136b.png">
->
+> <hr>
+> 
 > ### form.html
 >  
 >  - form1
@@ -49,13 +50,10 @@
 >  - form3
 >  
 >    <img width="669" alt="image" src="https://user-images.githubusercontent.com/99275134/196381397-3ab75538-6b01-4dd9-b8b7-70d923563e6c.png">
->
+> <hr>
+> 
 > ### rec.html
 >
->  - loading
->  
->    <img width="669" alt="image" src="https://user-images.githubusercontent.com/99275134/196385870-2d971c84-0024-4fc4-9058-d9b88bcafadd.png">
-> 
 >  - results 
 >  
 >    <img width="669" alt="image" src="https://user-images.githubusercontent.com/99275134/196381477-5bd3d2f7-c399-4ece-820a-2d9e2cad4c3a.png">
@@ -63,7 +61,8 @@
 >  - No results found
 >  
 >    <img width="669" alt="image" src="https://user-images.githubusercontent.com/99275134/196385913-18cc28a3-45b8-4162-9578-d0e642092be5.png">
->
+> <hr>
+> 
 > ### search.html
 >  
 >  - results
