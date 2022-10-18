@@ -19,10 +19,6 @@
 ## Using
  - <img src="https://img.shields.io/badge/Github-181717?style=flat-square&logo=github&logoColor=white" /><img src="https://img.shields.io/badge/VSCode-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white" />
  - <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white" /><img src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=CSS3&logoColor=white" /><img src="https://img.shields.io/badge/Sass-CC6699?style=flat-square&logo=Sass&logoColor=white" /><img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white" /><img src="https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=axios&logoColor=white" /><br>
- [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=yunsinjang&layout=compact)](https://github.com/yunsinjang/.semi_project_group5)
-
-
-
 
 ## API
  - [KAKAO map](https://apis.map.kakao.com/)
