@@ -2,7 +2,7 @@
 
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white" align="right"/><img src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=CSS3&logoColor=white" align="right"/><img src="https://img.shields.io/badge/Sass-CC6699?style=flat-square&logo=Sass&logoColor=white" align="right"/><img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white" align="right"/><img src="https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=axios&logoColor=white" align="right"/>
 
-박다윗, [하가영](https://github.com/sian20), 장윤신 
+[박다윗](https://github.com/daxxx00), [하가영](https://github.com/sian20), [장윤신](https://github.com/yunsinjang)
 
 > 2022-10-07 ~ 2022-10-17
 ## About
