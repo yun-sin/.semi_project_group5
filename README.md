@@ -10,7 +10,7 @@
 
 
 ## Team
- - [박다윗](https://github.com/daxxx00), [하가영](https://github.com/sian20), [장윤신](https://github.com/yunsinjang)
+ - [박다윗](https://github.com/daxxx00), [하가영](https://github.com/sian20), [장윤신](https://github.com/yun-sin)
 
 
 ## About
