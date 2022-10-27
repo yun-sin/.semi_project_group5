@@ -1,4 +1,4 @@
-# <img width="18" src="https://user-images.githubusercontent.com/99275134/196400858-fee3d238-c3f1-42cf-b75d-34e13432ee2e.png"/> 문화충전 
+# <img width="22" src="https://user-images.githubusercontent.com/99275134/196400858-fee3d238-c3f1-42cf-b75d-34e13432ee2e.png"/> 문화충전 
 
 
 > 5조 세미 프로젝트<br>
